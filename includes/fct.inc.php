@@ -27,17 +27,25 @@ function estConnecte()
 /**
  * Enregistre dans une variable session les infos d'un visiteur
  *
- * @param String $idVisiteur ID du visiteur
- * @param String $nom        Nom du visiteur
- * @param String $prenom     Prénom du visiteur
+ * @param String $id         ID de l'utilisateur
+ * @param String $nom        Nom de l'utilisateur
+ * @param String $prenom     Prénom de l'utilisateur
+ * @param String $type       type de l'utilisateur
  *
  * @return null
  */
-function connecter($idVisiteur, $nom, $prenom)
+function connecter(string $id, string $nom, string $prenom, string $type)
 {
-    $_SESSION['idVisiteur'] = $idVisiteur;
-    $_SESSION['nom'] = $nom;
-    $_SESSION['prenom'] = $prenom;
+    if($type === 'visiteur'){
+        $_SESSION['idVisiteur'] = $id;
+        $_SESSION['nom'] = $nom;
+        $_SESSION['prenom'] = $prenom;
+    }
+    else {
+        $_SESSION['idVisiteur'] = $id;
+        $_SESSION['nom'] = $nom;
+        $_SESSION['prenom'] = $prenom;
+    }
 }
 
 /**

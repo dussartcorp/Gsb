@@ -31,6 +31,7 @@
                     Navigation
                 </h3>
             </div>
+          <? php if($_SESSION['type'] === 'visiteur') ?>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
@@ -45,6 +46,8 @@
                     </div>
                 </div>
             </div>
+          <? php else if ($_SESSION['type'] === 'comptable') ?>
+          <p> Coucou </p>
         </div>
     </div>
 </div>

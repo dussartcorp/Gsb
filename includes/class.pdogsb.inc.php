@@ -38,7 +38,7 @@
 
 class PdoGsb
 {
-    private static $serveur = 'mysql:host=localhost';
+    private static $serveur = 'mysql:host=localhost:3306';
     private static $bdd = 'dbname=gsb_frais';
     private static $user = 'userGsb';
     private static $mdp = 'secret';
@@ -103,7 +103,20 @@ class PdoGsb
         $requetePrepare->execute();
         return $requetePrepare->fetch();
     }
-
+    
+    public function getInfosComptable($login, $mdp)
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+            'SELECT comptable.id AS id, comptable.nom AS nom, '
+            . 'comptable.prenom AS prenom '
+            . 'FROM comptable '
+            . 'WHERE comptable.login = :login AND comptable.mdp = :mdp'
+        );
+        $requetePrepare->bindParam(':login', $login, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':mdp', $mdp, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetch();
+    }
     /**
      * Retourne sous forme d'un tableau associatif toutes les lignes de frais
      * hors forfait concernées par les deux arguments.

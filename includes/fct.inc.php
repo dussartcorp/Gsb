@@ -24,6 +24,7 @@ function estConnecte()
     return isset($_SESSION['idVisiteur']);
 }
 
+
 /**
  * Enregistre dans une variable session les infos d'un visiteur
  *
@@ -33,11 +34,22 @@ function estConnecte()
  *
  * @return null
  */
-function connecter($idVisiteur, $nom, $prenom)
+function connecter($idVisiteur, $nom, $prenom, $type)
 {
-    $_SESSION['idVisiteur'] = $idVisiteur;
-    $_SESSION['nom'] = $nom;
-    $_SESSION['prenom'] = $prenom;
+    if($type === 'visiteur')
+    {
+        $_SESSION['idVisiteur'] = $idVisiteur;
+        $_SESSION['nom'] = $nom;
+        $_SESSION['prenom'] = $prenom;
+        $_SESSION['type'] = $type;
+    }
+    else
+    {
+        $_SESSION['idComptable'] = $idVisiteur;
+        $_SESSION['nom'] = $nom;
+        $_SESSION['prenom'] = $prenom;
+        $_SESSION['type'] = $type;
+    }
 }
 
 /**

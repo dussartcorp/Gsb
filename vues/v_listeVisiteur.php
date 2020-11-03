@@ -12,7 +12,7 @@
         <h3>Sélectionner un visiteur : </h3>
     </div>
     <div class="col-md-4">
-        <form action="index.php?uc=validerFichesDeFrais&action=selectionnerVisiteur" 
+        <form action="index.php?uc=validerFichesDeFrais&action=moisVisiteur" 
               method="post" role="form">
             <div class="form-group">
                 <label for="lstVisiteurs" accesskey="n">Visiteur : </label>

@@ -114,27 +114,20 @@ class PdoGsb
   public function verif_mdp(string $mdp, string $table, string $login)
   {
     $requetePrepare = PdoGsb::$monPdo->prepare(
-      'SELECT login, mdp '
-      . 'FROM comptable '
-    );
-    $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
-    $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
-    $requetePrepare->execute();
-    $ok =  $requetePrepare->fetch();
-    /*$requetePrepare = PdoGsb::$monPdo->prepare(
       'SELECT  mdp '
       . 'FROM comptable '
       . 'WHERE comptable.login = :unLogin');
     $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
-    $requetePrepare->bindParam(':uneTable', $table, PDO::PARAM_STR);
+    //$requetePrepare->bindParam(':uneTable', $table, PDO::PARAM_STR);
     $requetePrepare->execute();
-    $resultat = $requetePrepare->fetchAll(PDO::FETCH_ASSOC);
+    $resultat = $requetePrepare->fetch(PDO::FETCH_ASSOC);
+    $mdp = hash('sha512', $mdp);
     $mdp_hash = $resultat['mdp'];
-    if(password_verify($mdp, $mdp_hash)){
+    if($mdp === $mdp_hash){
       return true;
     } else {
       return false;
-    }*/
+    }
     
   }
 
@@ -146,17 +139,20 @@ class PdoGsb
    */
   public function getInfosComptable($login, $mdp)
   {
+    $verif = $this->verif_mdp($mdp, 'comptable', $login);
+    $mdp_hash = password_hash($mdp, PASSWORD_BCRYPT);
+    if($verif){
     $requetePrepare = PdoGsb::$monPdo->prepare(
       'SELECT comptable.id AS id, comptable.nom AS nom, '
       . 'comptable.prenom AS prenom '
       . 'FROM comptable '
-      . 'WHERE comptable.login = :unLogin AND comptable.mdp = :unMdp'
+      . 'WHERE comptable.login = :unLogin'
     );
     $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
-    $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
     $requetePrepare->execute();
-    //$ok = $this->verif_mdp($mdp, 'comptable', $login);
     return $requetePrepare->fetch();
+    }
+    return null;
   }
 
   /**

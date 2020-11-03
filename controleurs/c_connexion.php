@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Gestion de la connexion
@@ -28,7 +29,7 @@ case 'valideConnexion':
     $mdp = filter_input(INPUT_POST, 'mdp', FILTER_SANITIZE_STRING);
     $visiteur = $pdo->getInfosVisiteur($login, $mdp);
     $comptable = $pdo->getInfosComptable($login, $mdp);
-    if (!is_array($visiteur) || !is_array($comptable)) {
+    if (!is_array($visiteur) && !is_array($comptable)) {
         ajouterErreur('Login ou mot de passe incorrect');
         include 'vues/v_erreurs.php';
         include 'vues/v_connexion.php';
@@ -50,3 +51,4 @@ default:
     include 'vues/v_connexion.php';
     break;
 }
+

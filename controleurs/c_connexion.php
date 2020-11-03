@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Gestion de la connexion

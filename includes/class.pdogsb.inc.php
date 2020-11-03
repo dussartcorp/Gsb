@@ -507,19 +507,22 @@ class PdoGsb
      *
      * @return un tableau associatif key : [nom][prenom] contenant tout les visiteurs medicaux 
      */
-    public function getListeVisiteur() : array
+    public function getListeVisiteurs() 
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
-                'SELECT visiteur.nom as nom, visiteur.prenom as prenom'
+                'SELECT visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom'
                 . 'FROM visiteur'
                 . 'ORDER BY id, nom, prenom asc'
         );
         $requetePrepare->execute();
+        $lesVisiteurs = array();
         while($ligne = $requetePrepare->fetch())
         {
+            $id = $ligne['id'];
             $nom = $ligne['nom'];
             $prenom = $ligne['prenom'];
             $lesVisiteurs[] = array(
+              'id' => $id,
               'nom' => $nom,
               'prenom' => $prenom
             );
@@ -535,7 +538,7 @@ class PdoGsb
      *
      * @return l'id du visiteur concerner
      */
-    public function getIdVisiteur(string $nom, string $prenom) : string
+    public function getIdVisiteur(string $nom, string $prenom) 
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
                 'SELECT visiteur.id'

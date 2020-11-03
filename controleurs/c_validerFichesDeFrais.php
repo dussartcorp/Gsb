@@ -15,21 +15,20 @@
  */
 
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-$idComptable = $_SESSION['idComptable'];
-switch ($action) {
-case 'selectionnerVisiteur':
-    // inspiration : c_etatFrais.php case:'selectionnerMois'
-    $lesVisiteurs = $pdo->getListeVisiteurs();
-    $lesCles = array_keys($lesVisiteurs);
-    $visiteurASelectionner = $lesCles[0];
-    include 'vues/v_listeVisiteur.php';
-    break;
-case 'selectionnerMois':
-    $leVisiteur = filter_input(INPUT_POST, 'lstVisiteurs', FILTER_SANITIZE_STRING);
-    $id_vst = $pdo->getIdVisiteur($leVisiteur['nom'],$leVisiteur['prenom']);
-    $lesMois = $pdo->getLesMoisDisponibles($id_vst);
-    $lesCles = array_keys($lesMois);
-    $moisASelectionner = $lesCles[0];
-    include 'vues/v_listeMois';
-    break;
-}
+$idcomptable = $_SESSION['idComptable'];
+//switch ($action) {
+//case 'selectionnerVisiteur':
+      echo "robin le pd";
+      $lesVisiteurs = $pdo->getListeVisiteurs();
+      require 'vues/v_listeVisiteur.php';
+//   break;
+//case 'selectionnerMois':
+//    $leVisiteur = filter_input(INPUT_POST, 'lstVisiteurs', FILTER_SANITIZE_STRING);
+//    $id_vst = $pdo->getIdVisiteur($leVisiteur['nom'],$leVisiteur['prenom']);
+//    $lesMois = $pdo->getLesMoisDisponibles($id_vst);
+//    $lesCles = array_keys($lesMois);
+//    $moisASelectionner = $lesCles[0];
+//    include 'vues/v_listeMois';
+//    
+//    break;
+//}

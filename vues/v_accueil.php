@@ -38,7 +38,7 @@
                            class="btn btn-success btn-lg" role="button">
                             <span class="glyphicon glyphicon-pencil"></span>
                             <br>Renseigner la fiche de frais</a>
-                        <a href="index.php?uc=etatFrais&action=selectionnerMois"
+                        <a href="index.php?uc=validerFichesDeFrais&action=selectionnerVisiteur"
                            class="btn btn-primary btn-lg" role="button">
                             <span class="glyphicon glyphicon-list-alt"></span>
                             <br>Afficher mes fiches de frais</a>

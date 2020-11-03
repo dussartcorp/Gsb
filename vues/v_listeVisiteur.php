@@ -12,7 +12,7 @@
         <h3>Sélectionner un visiteur : </h3>
     </div>
     <div class="col-md-4">
-        <form action="index.php?uc=validerFichesDeFrais&action=voirFichesFrais" 
+        <form action="index.php?uc=validerFichesDeFrais&action=selectionnerVisiteur" 
               method="post" role="form">
             <div class="form-group">
                 <label for="lstVisiteurs" accesskey="n">Visiteur : </label>
@@ -20,22 +20,14 @@
                         <?php 
                             foreach($lesVisiteurs as $unVisiteur)
                             {
-                                $vst = $unVisiteur[]; 
+                                $vst = $unVisiteur; 
+                                $id_vst = $unVisiteur['id'];
                                 $nom_vst = $unVisiteur['nom'];
                                 $prenom_vst = $unVisiteur['prenom'];
-                            if ($mois == $moisASelectionner) {
-                        ?>
-                            <option selected value="<?php echo $vst ?>">
-                                <?php echo $nom_vst . ' ' . $prenom_vst ?> </option>
-                            <?php
-                            } 
-                            else 
-                            {
-                            ?>
-                                <option value="<?php echo $vst ?>">
-                                    <?php echo $nom_vst . ' ' . $prenom_vst ?> </option>
-                                <?php
-                            }
+                           ?> 
+                            <option value="<?php echo $id_vst ?>">
+                            <?php echo $nom_vst . ' ' . $prenom_vst ?> </option> 
+                        <?php
                             }
                         ?>
                 </select>

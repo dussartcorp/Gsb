@@ -33,18 +33,18 @@ function estConnecte()
  *
  * @return null
  */
-function connecter($idVisiteur, $nom, $prenom, $type)
+function connecter($idUtilisiteur, $nom, $prenom, $type)
 {
     if($type === 'visiteur')
     {
-        $_SESSION['idVisiteur'] = $idVisiteur;
+        $_SESSION['idVisiteur'] = $idUtilisiteur;
         $_SESSION['nom'] = $nom;
         $_SESSION['prenom'] = $prenom;
         $_SESSION['type'] = $type;
     }
     else 
     {
-        $_SESSION['idComptable'] = $idVisiteur;
+        $_SESSION['idComptable'] = $idUtilisiteur;
         $_SESSION['nom'] = $nom;
         $_SESSION['prenom'] = $prenom;
         $_SESSION['type'] = $type;

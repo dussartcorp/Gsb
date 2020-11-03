@@ -12,6 +12,7 @@ create table if not exists comptable (
 alter table visiteur modify mdp varchar(512);
 update visiteur set mdp = SHA2(mdp, 512);
 insert into comptable(id,nom,prenom,login,mdp) values 
-('c01','Dupont','Eric','Deric', SHA2('P@ssw0rd', 512));
-
+('c01','AHMED ALI','Nassim','Anassim', SHA2('P@ssw0rd', 512)),
+('c02', 'LAUDE', 'Thibault', 'Dluke', SHA2('P@ssw0rd', 512)),
+l
 select * from visiteur;

@@ -511,12 +511,13 @@ class PdoGsb
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
                 'SELECT visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom'
-                . 'FROM visiteur'
-                . 'ORDER BY id, nom, prenom asc'
+                . ' FROM visiteur'
+                . ' ORDER BY id, nom, prenom asc'
         );
         $requetePrepare->execute();
         $lesVisiteurs = array();
-        while($ligne = $requetePrepare->fetch())
+        $lignes = $requetePrepare->fetchAll();
+        foreach($lignes as $ligne)
         {
             $id = $ligne['id'];
             $nom = $ligne['nom'];

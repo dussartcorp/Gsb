@@ -18,7 +18,6 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 $idcomptable = $_SESSION['idComptable'];
 //switch ($action) {
 //case 'selectionnerVisiteur':
-      echo "robin le pd";
       $lesVisiteurs = $pdo->getListeVisiteurs();
       require 'vues/v_listeVisiteur.php';
 //   break;

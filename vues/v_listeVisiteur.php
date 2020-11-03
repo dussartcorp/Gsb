@@ -20,21 +20,18 @@
                         <?php 
                             foreach($lesVisiteurs as $unVisiteur)
                             {
-                                $vst = $unVisiteur; 
                                 $id_vst = $unVisiteur['id'];
                                 $nom_vst = $unVisiteur['nom'];
                                 $prenom_vst = $unVisiteur['prenom'];
                            ?> 
-                            <option value="<?php echo $id_vst ?>">
+                            <option selected value="<?php echo $id_vst ?>">
                             <?php echo $nom_vst . ' ' . $prenom_vst ?> </option> 
                         <?php
                             }
-                        ?>
-                </select>
+                        ?>   
+                </select>     
             </div>
             <input id="ok" type="submit" value="Valider" class="btn btn-success" 
-                   role="button">
-            <input id="annuler" type="reset" value="Effacer" class="btn btn-danger" 
                    role="button">
         </form>
     </div>

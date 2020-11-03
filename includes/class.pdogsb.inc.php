@@ -104,7 +104,7 @@ class PdoGsb
         return $requetePrepare->fetch();
     }
     
-    public function getInfosComptable($login, $mdp)
+     public function getInfosComptable($login, $mdp)
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
             'SELECT comptable.id AS id, comptable.nom AS nom, '
@@ -117,6 +117,8 @@ class PdoGsb
         $requetePrepare->execute();
         return $requetePrepare->fetch();
     }
+    
+
     /**
      * Retourne sous forme d'un tableau associatif toutes les lignes de frais
      * hors forfait concernées par les deux arguments.
@@ -498,5 +500,52 @@ class PdoGsb
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
+    }
+    
+    /**
+     * Retourne une liste de tous les visiteurs medicaux de GSB.
+     *
+     * @return un tableau associatif key : [nom][prenom] contenant tout les visiteurs medicaux 
+     */
+    public function getListeVisiteur() : array
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+                'SELECT visiteur.nom as nom, visiteur.prenom as prenom'
+                . 'FROM visiteur'
+                . 'ORDER BY id, nom, prenom asc'
+        );
+        $requetePrepare->execute();
+        while($ligne = $requetePrepare->fetch())
+        {
+            $nom = $ligne['nom'];
+            $prenom = $ligne['prenom'];
+            $lesVisiteurs[] = array(
+              'nom' => $nom,
+              'prenom' => $prenom
+            );
+        }
+        return $lesVisiteurs;
+    }
+    
+    /**
+     * Recupere l'id d'un visiteur via son nom et prenom
+     *
+     * @param String $nom nom du visiteur
+     * @param String $prenom prenom du visiteur
+     *
+     * @return l'id du visiteur concerner
+     */
+    public function getIdVisiteur(string $nom, string $prenom) : string
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+                'SELECT visiteur.id'
+                . 'FROM visiteur'
+                . 'WHERE visiteur.nom = :unNom && visiteur.prenom = :unPrenom'
+        );
+        $requetePrepare->bindParam(':unNom', $nom, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unPrenom', $prenom, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $id = $requetePrepare->fetch();
+        return $id;    
     }
 }

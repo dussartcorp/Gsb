@@ -43,6 +43,8 @@
                     </div>
                     <div class="col-md-8">
                         <ul class="nav nav-pills pull-right" role="tablist">
+                            <!-- Barre de nav visiteur medical-->
+                            <?php if ($_SESSION['type'] === 'visiteur') { ?>
                             <li <?php if (!$uc || $uc == 'accueil') { ?>class="active" <?php } ?>>
                                 <a href="index.php">
                                     <span class="glyphicon glyphicon-home"></span>
@@ -68,6 +70,32 @@
                                     Déconnexion
                                 </a>
                             </li>
+                            <?php }?>
+                            <!----------------------------->
+                            
+                            <!-- Barre de nav comptable -->
+                            <?php if ($_SESSION['type'] === 'comptable') {?>
+                            <li <?php if (!$uc || $uc == 'accueil') { ?>class="active" <?php } ?>>
+                                <a href="index.php">
+                                    <span class="glyphicon glyphicon-home"></span>
+                                    Accueil
+                                </a>
+                            </li>
+                            <li <?php if ($uc == 'etatFrais') { ?>class="active"<?php } ?>>
+                                <a href="index.php?uc=validerFichesDeFrais&action=selectionnerVisiteur">
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Valider les fiches de frais
+                                </a>
+                            </li>
+                            <li 
+                            <?php if ($uc == 'deconnexion') { ?>class="active"<?php } ?>>
+                                <a href="index.php?uc=deconnexion&action=demandeDeconnexion">
+                                    <span class="glyphicon glyphicon-log-out"></span>
+                                    Déconnexion
+                                </a>
+                            </li>
+                            <?php }?>
+                            <!----------------------------->
                         </ul>
                     </div>
                 </div>

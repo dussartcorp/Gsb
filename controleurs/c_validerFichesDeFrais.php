@@ -27,6 +27,15 @@ case 'moisVisiteur':
     $lesCles = array_keys($lesMois);
     $moisASelectionner = $lesCles[0];
     include 'vues/v_listeMois.php';
-   
+    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($id_vst,$moisASelectionner);
+    $lesFraisForfait = $pdo->getLesFraisForfait($id_vst, $moisASelectionner);
+    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($id_vst, $moisASelectionner);
+    $numAnnee = substr($moisASelectionner, 0, 4);
+    $numMois = substr($moisASelectionner, 4, 2);
+    $libEtat = $lesInfosFicheFrais['libEtat'];
+    $montantValide = $lesInfosFicheFrais['montantValide'];
+    $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
+    $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
+    include 'vues/v_etatFrais.php';
     break;
 }

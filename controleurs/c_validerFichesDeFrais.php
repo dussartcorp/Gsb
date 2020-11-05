@@ -19,7 +19,7 @@ $idcomptable = $_SESSION['idComptable'];
 switch ($action) {
 case 'selectionnerVisiteur':
       $lesVisiteurs = $pdo->getListeVisiteurs();
-      require 'vues/v_listeVisiteur.php';
+      include 'vues/v_listeVisiteur.php';
    break;
 case 'moisVisiteur':
     $id_vst = filter_input(INPUT_POST, "lstVisiteurs");
@@ -27,6 +27,6 @@ case 'moisVisiteur':
     $lesCles = array_keys($lesMois);
     $moisASelectionner = $lesCles[0];
     include 'vues/v_listeMois.php';
-    
+   
     break;
 }

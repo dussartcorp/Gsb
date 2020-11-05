@@ -33,6 +33,8 @@
             </div>
             <input id="ok" type="submit" value="Valider" class="btn btn-success" 
                    role="button">
+            <input id="no" type="reset" value="Effacer" class="btn btn-success" 
+                   role="button">
         </form>
     </div>
 </div>

@@ -91,18 +91,107 @@ class PdoGsb
      * @return l'id, le nom et le prénom sous la forme d'un tableau associatif
      */
     public function getInfosVisiteur($login, $mdp)
-    {
-        $requetePrepare = PdoGsb::$monPdo->prepare(
-            'SELECT visiteur.id AS id, visiteur.nom AS nom, '
-            . 'visiteur.prenom AS prenom '
-            . 'FROM visiteur '
-            . 'WHERE visiteur.login = :unLogin AND visiteur.mdp = :unMdp'
-        );
-        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
-        $requetePrepare->execute();
-        return $requetePrepare->fetch();
+  {
+    if ($this->verif_mdp($mdp, 'visiteur', $login)) {
+      $requetePrepare = PdoGsb::$monPdo->prepare(
+        'SELECT visiteur.id AS id, visiteur.nom AS nom, '
+        . 'visiteur.prenom AS prenom '
+        . 'FROM visiteur '
+        . 'WHERE visiteur.login = :unLogin'
+      );
+      $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+      $requetePrepare->execute();
+      return $requetePrepare->fetch();
     }
+    return null;
+  }
+
+  /**
+   * Permet de récupérer le mot de passe visiteur
+   * @param string $login le login visiteur
+   * @return type retourne le mot de passe
+   */
+  public function recupereMdpVisiteur(string $login)
+  {
+    $requetePrepare = PdoGsb::$monPdo->prepare(
+      'SELECT  mdp '
+      . 'FROM visiteur '
+      . 'WHERE visiteur.login = :unLogin');
+    $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+    $requetePrepare->execute();
+    return $requetePrepare->fetch(PDO::FETCH_ASSOC);
+  }
+
+  /**
+   * Permet de récupérer le mot de passe comptable
+   * @param string $login le login comptable
+   * @return type retourne le mot de passe
+   */
+  public function recupereMdpComptable(string $login)
+  {
+    $requetePrepare = PdoGsb::$monPdo->prepare(
+      'SELECT  mdp '
+      . 'FROM comptable '
+      . 'WHERE comptable.login = :unLogin');
+    $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+    $requetePrepare->execute();
+    return $requetePrepare->fetch(PDO::FETCH_ASSOC);
+  }
+
+  /**
+   * Permet de vérifier si le mot de passe en paramètre est bien celui associé au login 
+   * @param string $mdp le mot de passe entré
+   * @param string $table la table sur laquelle on cherche
+   * @param string $login le login
+   * @return boolean si mot de passe correspond
+   */
+  public function verif_mdp(string $mdp, string $table, string $login)
+  {
+    if ($table === 'visiteur') {
+      $resultat = $this->recupereMdpVisiteur($login);
+    } else if ($table === 'comptable') {
+      $resultat = $this->recupereMdpComptable($login);
+    }
+    /*     * $requetePrepare = PdoGsb::$monPdo->prepare(
+      'SELECT  mdp '
+      . 'FROM visiteur '
+      . 'WHERE visiteur.login = :unLogin');
+      $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+      //$requetePrepare->bindParam(':uneTable', $table, PDO::PARAM_STR);
+      $requetePrepare->execute();
+      $resultat = $requetePrepare->fetch(PDO::FETCH_ASSOC); */
+    $mdp = hash('sha512', $mdp);
+    $mdp_hash = $resultat['mdp'];
+    if ($mdp === $mdp_hash) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Retourne les infos du comptable
+   * @param type $login le login mis dans le formulaire
+   * @param type $mdp le mot de passe mis dans le formulaire
+   * @return type
+   */
+  public function getInfosComptable($login, $mdp)
+  {
+    $verif = $this->verif_mdp($mdp, 'comptable', $login);
+    $mdp_hash = password_hash($mdp, PASSWORD_BCRYPT);
+    if ($verif) {
+      $requetePrepare = PdoGsb::$monPdo->prepare(
+        'SELECT comptable.id AS id, comptable.nom AS nom, '
+        . 'comptable.prenom AS prenom '
+        . 'FROM comptable '
+        . 'WHERE comptable.login = :unLogin'
+      );
+      $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+      $requetePrepare->execute();
+      return $requetePrepare->fetch();
+    }
+    return null;
+  }
 
     /**
      * Retourne sous forme d'un tableau associatif toutes les lignes de frais

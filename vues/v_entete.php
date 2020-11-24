@@ -25,6 +25,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./styles/bootstrap/bootstrap.css" rel="stylesheet">
         <link href="./styles/style.css" rel="stylesheet">
+         <script src="https://kit.fontawesome.com/a19b0d8700.js" crossorigin="anonymous"></script>
+        <link href="https://kit-free.fontawesome.com/releases/latest/css/free-v4-shims.min.css" media="all"
+        rel="stylesheet">
+        <link href="https://kit-free.fontawesome.com/releases/latest/css/free-v4-font-face.min.css" media="all"
+        rel="stylesheet">
+        <link href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css" media="all" rel="stylesheet">
     </head>
     <body>
         <div class="container">
@@ -83,7 +89,7 @@
                             </li>
                             <li <?php if ($uc == 'etatFrais') { ?>class="active"<?php } ?>>
                                 <a href="index.php?uc=etatFraisComptable&action=selectionnerVisiteur">
-                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    <span class="fas fa-check"></span>
                                     Valider les fiches de frais
                                 </a>
                             </li>

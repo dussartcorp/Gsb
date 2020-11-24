@@ -36,7 +36,7 @@
                     <div class="col-xs-12 col-md-12">
                         <a href="index.php?uc=etatFraisComptable&action=selectionnerVisiteur"
                            class="btn btn-primary btn-lg" role="button">
-                            <span class="glyphicon glyphicon-list-alt"></span>
+                            <span class="fas fa-check"></span>
                             <br>Valider les fiches de frais</a>
                     </div>
                 </div>

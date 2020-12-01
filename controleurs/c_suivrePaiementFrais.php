@@ -15,7 +15,7 @@ switch ($action) {
     break;
   case 'moisVisiteur':
     $id_vst = filter_input(INPUT_POST, "lstVisiteurs");
-    $_SESSION['idVisiteur'] = $idvst;
+    $_SESSION['idVisiteur'] = $id_vst;
     $lesMois = $pdo->getLesMoisDisponibles($_SESSION['idVisiteur']);
     $lesCles = array_keys($lesMois);
     $moisASelectionner = $lesCles[0];

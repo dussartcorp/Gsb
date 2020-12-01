@@ -10,7 +10,7 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 $idcomptable = $_SESSION['idComptable'];
 switch ($action) {
   case 'selectionnerSuiviV':
-    $lesVisiteurs = $pdo->getListeVisiteurs();
+    $lesVisiteurs = $pdo->getListeVisiteurVA();
     include 'vues/comptable/v_listeVisiteur.php';
     break;
   case 'moisVisiteur':

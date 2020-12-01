@@ -604,13 +604,13 @@ class PdoGsb
    */
   public function getListeVisiteurVA() {
     $requetePrepare = PdoGsb::$monPdo->prepare(
-            'SELECT visiteur.id as id, '
-            . 'visiteur.nom as nom, '
-            . 'visiteur.prenom as prenom, '
-            . 'idetat as etat '
-            . 'FROM visiteur left join fichefrais on visiteur.id=fichefrais.idvisiteur'
-            . 'WHERE idetat= "VA"'
-            . 'AND datemodif'
+            'SELECT visiteur.id as id,'
+            . ' visiteur.nom as nom,'
+            . ' visiteur.prenom as prenom,'
+            . ' idetat as etat'
+            . ' FROM visiteur left join fichefrais on visiteur.id=fichefrais.idvisiteur'
+            . ' WHERE idetat= "VA"'
+            . ' AND mois like "2020%"'
     );
     $requetePrepare->execute();
     $lesVisiteurs = array();

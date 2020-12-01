@@ -38,6 +38,10 @@
                            class="btn btn-primary btn-lg" role="button">
                             <span class="glyphicon glyphicon-list-alt"></span>
                             <br>Valider les fiches de frais</a>
+                       <a href="index.php?uc=suivrePaiementFrais&action=selectionnerSuiviV"
+                           class="btn btn-primary btn-lg" role="button">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                            <br>Suivre les fiches de frais</a>
                     </div>
                 </div>
             </div>        

@@ -6,6 +6,7 @@
  * and open the template in the editor.
  */
 ?>
+<?php if($_SESSION['type'] === 'visiteur') {?>
 <h2>Valider fiches de frais</h2>
 <div class="row">
     <div class="col-md-4">
@@ -38,3 +39,8 @@
         </form> 
     </div>
 </div>
+<?php } else {?>
+
+
+<?php } ?>
+

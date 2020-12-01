@@ -17,7 +17,8 @@ case 'selectionnerVisiteur':
       break; 
 case 'selectionnerMois': 
     $idvst = filter_input(INPUT_POST, "lstVisiteurs",FILTER_SANITIZE_STRING);
-    $lesMois = $pdo->getLesMoisDisponibles($idvst);
+    $_SESSION['idVisiteur'] = $idvst;
+    $lesMois = $pdo->getLesMoisDisponibles($_SESSION['idVisiteur']);
     // Afin de sélectionner par défaut le dernier mois dans la zone de liste
     // on demande toutes les clés, et on prend la première,
     // les mois étant triés décroissants

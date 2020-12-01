@@ -21,7 +21,7 @@ if ($estConnecte) {
     }
     elseif ($_SESSION['type'] === 'comptable') 
     {
-        include 'vues/v_accueil_comptable.php';
+        include 'vues/comptable/v_accueil_comptable.php';
     }
 }
 else 

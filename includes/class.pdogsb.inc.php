@@ -598,6 +598,40 @@ class PdoGsb
   }
 
   /**
+   * Retourne une liste de tous les visiteurs qui ont une fiche de frais validée
+   * 
+   * 
+   */
+  public function getListeVisiteurVA() {
+    $requetePrepare = PdoGsb::$monPdo->prepare(
+            'SELECT visiteur.id as id, '
+            . 'visiteur.nom as nom, '
+            . 'visiteur.prenom as prenom, '
+            . 'idetat as etat '
+            . 'FROM visiteur left join fichefrais on visiteur.id=fichefrais.idvisiteur'
+            . 'WHERE idetat= "VA"'
+            . 'AND datemodif'
+    );
+    $requetePrepare->execute();
+    $lesVisiteurs = array();
+    $lignes = $requetePrepare->fetchAll();
+    foreach ($lignes as $ligne) {
+      $id = $ligne['id'];
+      $nom = $ligne['nom'];
+      $prenom = $ligne['prenom'];
+      $etat = $ligne['etat'];
+      $lesVisiteurs[] = array(
+          'id' => $id,
+          'nom' => $nom,
+          'prenom' => $prenom,
+          'etat' => $etat
+      );
+    }
+    return $lesVisiteurs;
+  } 
+  
+  
+  /**
    * Recupere l'id d'un visiteur via son nom et prenom
    *
    * @param String $nom nom du visiteur

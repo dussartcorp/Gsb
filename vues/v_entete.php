@@ -87,7 +87,7 @@
                                     Accueil
                                 </a>
                             </li>
-                            <li <?php if ($uc == 'etatFrais') { ?>class="active"<?php } ?>>
+                            <li <?php if ($uc == 'etatFraisComptable') { ?>class="active"<?php } ?>>
                                 <a href="index.php?uc=etatFraisComptable&action=selectionnerVisiteur">
                                     <span class="fas fa-check"></span>
                                     Valider les fiches de frais

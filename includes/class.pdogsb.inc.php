@@ -632,7 +632,8 @@ class PdoGsb
         $requetePrepare = PdoGsb::$monPdo->prepare(
                 'UPDATE fichefrais'
                 . ' SET fichefrais.idetat = "VA"'
-                . ' fichefrais.montantvalidee += :unMontant'
+                . ' fichefrais.montantvalidee = :unMontant'
+                . ' fichefrais.datemodif = CAST(NOW() as DATE)'
                 . ' WHERE fichefrais.idvisiteur = :unId && fichefrais.mois = :uneDate'
         
         );

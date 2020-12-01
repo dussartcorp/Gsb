@@ -48,6 +48,7 @@ case 'validerFicheFrais':
     $pdo->validerFichesDeFrais($_SESSION['idVisi'],$laDate,$unMontant);
     break;
 case 'modifierElementFicheHorsFrais':
+    $pdo->modifierElementFicheHorsFrais();
     break;
 case 'modifierElementForfaitisés':
     break;

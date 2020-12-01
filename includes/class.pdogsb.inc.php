@@ -642,4 +642,32 @@ class PdoGsb
         $requetePrepare->bindPram(':unMontant', $montant, PDO::PARAM_INT);
         $requetePrepare->execute();
     }
+    
+    /**
+     * Modifier les elements d'une fiche hors frais 
+     * 
+     * 
+     * @param string $id du visiteur
+     * @param string $date date de la fiche hors frais
+     * @param string $libelle libelle de la fiche hors frais
+     * @param float $montant montant de la fiche hors frais
+     * 
+     * @return null
+     */
+    public function modifierElementFicheHorsFrais(string $id, string $date, string $libelle, float $montant)
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+                'UPDATE fichefrais'
+                . ' SET fichefrais.montantvalidee = :unMontant'
+                . ' fichefrais.libelle = :unLibelle'
+                . ' fichefrais.datemodif = :laDate'
+                . ' WHERE fichefrais.idvisiteur = :unId'
+        
+        );
+        $requetePrepare->bindParam(':unId', $id, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':laDate', $date, PDO::PARAM_STR);
+        $requetePrepare->bindPram(':unLibelle', $libelle, PDO::PARAM_INT);
+        $requetePrepare->bindPram(':unMontant', $montant, PDO::PARAM_INT);
+        $requetePrepare->execute();
+    }
 }

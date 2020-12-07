@@ -51,6 +51,8 @@ class PdoGsbTest extends PHPUnit\Framework\TestCase {
      * @todo   Implement testGetInfosVisiteur().
      */
     public function testGetInfosVisiteur() {
+      $array = ["id" => "a131", "nom" => "Villechalane", "prenom" => "Louis"];
+      $this->assertSame($array, getInfosVisiteur('lvillachane', 'ju7xg'));
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
                 'This test has not been implemented yet.'

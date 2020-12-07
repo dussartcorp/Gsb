@@ -16,3 +16,6 @@ insert into comptable(id,nom,prenom,login,mdp) values
 ('c02', 'LAUDE', 'Thibault', 'Lthi', SHA2('P@ssw0rd', 512)),
 ('c03', 'DUSSART', 'Luke', 'Dluke', SHA2('P@ssw0rd', 512));
 select * from visiteur;
+					 
+Insert into etat(id, libelle) values("MP", "Mise en paiement");
+Update etat set libelle = "Validée" where id="VA";

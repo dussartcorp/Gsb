@@ -18,16 +18,15 @@ switch ($action) {
   case 'afficheFiche':
     $id_vst = filter_input(INPUT_POST, "lstVisiteurs");
     $_SESSION['idVisiteur'] = $id_vst;
-    $moisCourant =
-    include 'vues/comptable/v_listeMoisComptable.php';
     $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['idVisiteur'], $_SESSION['date']);
     $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['idVisiteur'], $_SESSION['date']);
     $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($_SESSION['idVisiteur'], $_SESSION['date']);
-    $numAnnee = substr($moisASelectionner, 0, 4);
-    $numMois = substr($moisASelectionner, 4, 2);
+    $numAnnee = substr($_SESSION['date'], 0, 4);
+    $numMois = substr($_SESSION['date'], 4, 2);
+    $lesFiches = $lesInfosFicheFrais;
     $libEtat = $lesInfosFicheFrais['libEtat'];
     $montantValide = $lesInfosFicheFrais['montantValide'];
-    $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
+    
     $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
     include 'vues/comptable/v_etatFraisComptable.php';
     break;

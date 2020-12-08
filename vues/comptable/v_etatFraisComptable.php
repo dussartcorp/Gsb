@@ -72,7 +72,13 @@
         ?>
     </table>
 </div>
+
+
+
 <?php } else { ?>
+
+
+
 <hr>
 <div class="panel panel-primary">
     <div class="panel-heading">Fiche de frais du mois 
@@ -84,47 +90,28 @@
     </div>
 </div>
 <div class="panel panel-info">
-    <div class="panel-heading">Eléments forfaitisés</div>
-    <table class="table table-bordered table-responsive">
-        <tr>
-            <?php
-            foreach ($lesFraisForfait as $unFraisForfait) {
-                $libelle = $unFraisForfait['libelle']; ?>
-                <th> <?php echo htmlspecialchars($libelle) ?></th>
-                <?php
-            }
-            ?>
-        </tr>
-        <tr>
-            <?php
-            foreach ($lesFraisForfait as $unFraisForfait) {
-                $quantite = $unFraisForfait['quantite']; ?>
-                <td class="qteForfait"><?php echo $quantite ?> </td>
-                <?php
-            }
-            ?>
-        </tr>
-    </table>
-</div>
-<div class="panel panel-info">
     <div class="panel-heading">Descriptif des éléments hors forfait - 
-        <?php echo $nbJustificatifs ?> justificatifs reçus</div>
+        <?php echo $lesFiches['nbJustificatifs'] ?> justificatifs reçus</div>
     <table class="table table-bordered table-responsive">
         <tr>
             <th class="date">Date</th>
-            <th class="libelle">Libellé</th>
             <th class='montant'>Montant</th>
             <th class="etat">Etat</th>
         </tr>
         <?php
         foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
             $date = $unFraisHorsForfait['date'];
-            $libelle = htmlspecialchars($unFraisHorsForfait['libelle']);
-            $montant = $unFraisHorsForfait['montant']; ?>
+            foreach($lesFraisHorsForfait as $frais){
+              $montant += $frais['montant'];
+            }
+            foreach($lesFraisForfait as $frais){
+               $montant += $frais['montant'];
+            }
+            $etat = $unFraisHorsForfait['libEtat']?>
             <tr>
                 <td><?php echo $date ?></td>
-                <td><?php echo $libelle ?></td>
                 <td><?php echo $montant ?></td>
+                <td><?php echo $etat ?></td>
             </tr>
             <?php
         }

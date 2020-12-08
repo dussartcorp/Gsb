@@ -11,7 +11,8 @@ $idcomptable = $_SESSION['idComptable'];
 switch ($action) {
 case 'selectionnerVisiteur':
      $lesVisiteurs = $pdo->getListeVisiteurs(); 
-     $idvst = filter_input(INPUT_POST, "lstVisiteurs",FILTER_SANITIZE_STRING);$_SESSION['idVisi'] = $idvst;
+     $idvst = filter_input(INPUT_POST, "lstVisiteurs",FILTER_SANITIZE_STRING);
+     $_SESSION['idVisi'] = $idvst;
      include 'vues/comptable/v_listeVisiteur.php';
      break; 
 case 'selectionnerMois': 
@@ -40,6 +41,12 @@ case 'voirEtatFrais':
     $montantValide = $lesInfosFicheFrais['montantValide'];
     $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
     $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
+    $dateR = filter_input(INPUT_POST,'dateR',FILTER_SANITIZE_STRING);
+    $libelle = filter_input(INPUT_POST,'libelle',FILTER_SANITIZE_STRING);
+    $montant = filter_input(INPUT_POST,'montant',FILTER_SANITIZE_STRING);
+    $_SESSION['dateR'] = $dateR;
+    $_SESSION['lib'] = $libelle;
+    $_SESSION['montant'] = $montant;
     include 'vues/comptable/v_etatFraisComptable.php'; 
     break;
 case 'validerFicheFrais':
@@ -48,8 +55,9 @@ case 'validerFicheFrais':
     $pdo->validerFichesDeFrais($_SESSION['idVisi'],$laDate,$unMontant);
     break;
 case 'modifierElementFicheHorsFrais':
-    $pdo->modifierElementFicheHorsFrais();
+    $pdo->modifierElementFicheHorsFrais($_SESSION['idVisi'],$_SESSION['dateR'],$_SESSION['lib'],$_SESSION['montant']);
     break;
 case 'modifierElementForfaitisés':
+    $pdo->majFraisForfait($_SESSION['idVisi'],$_SESSION['mois'],array());
     break;
 }

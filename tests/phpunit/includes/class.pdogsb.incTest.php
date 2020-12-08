@@ -41,9 +41,7 @@ class PdoGsbTest extends PHPUnit\Framework\TestCase {
      */
     public function testGetPdoGsb() {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->getPdoGsb());
     }
 
     /**
@@ -51,10 +49,10 @@ class PdoGsbTest extends PHPUnit\Framework\TestCase {
      * @todo   Implement testGetInfosVisiteur().
      */
     public function testGetInfosVisiteur() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+       $this->assertSame(
+               ['id' => 'a131','nom' => 'Villelachane','prenom' => 'Louis'], 
+               $this->object->getInfosVisiteur('lvillachane','jux7g')
+       );
     }
 
     /**
@@ -62,9 +60,10 @@ class PdoGsbTest extends PHPUnit\Framework\TestCase {
      * @todo   Implement testGetLesFraisHorsForfait().
      */
     public function testGetLesFraisHorsForfait() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+        $tab = $this->object->getLesFraisHorsForfait('a131','201609');
+        $this->assertSame(
+                ['id' => '1', 'idvisiteur' => 'a131', 'mois' => '201609', 'libelle' => 'Location salle conférence', 'date' => '2016-09-11', 'montant' =>'292.00'],
+                $tab[0]
         );
     }
 
@@ -73,10 +72,7 @@ class PdoGsbTest extends PHPUnit\Framework\TestCase {
      * @todo   Implement testGetNbjustificatifs().
      */
     public function testGetNbjustificatifs() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertEquals(1, $this->object->getNbjustificatifs('a131', '201609'));
     }
 
     /**
@@ -84,10 +80,8 @@ class PdoGsbTest extends PHPUnit\Framework\TestCase {
      * @todo   Implement testGetLesFraisForfait().
      */
     public function testGetLesFraisForfait() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $tab = $this->object->getLesFraisHorsForfait('a131', '201609');
+        $this->assertSame(['idvisiteur' => 'a131', 'mois' => '201609', 'idfraisforfait' => 'ETP', 'quantité' => '5'], $tab[0]);
     }
 
     /**
@@ -95,10 +89,8 @@ class PdoGsbTest extends PHPUnit\Framework\TestCase {
      * @todo   Implement testGetLesIdFrais().
      */
     public function testGetLesIdFrais() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $tab = ['ETP','KM','NUI','REP'];
+        $this->assertSame($tab, $this->object->getLesIdFrais());
     }
 
     /**

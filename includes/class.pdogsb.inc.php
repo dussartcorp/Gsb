@@ -622,24 +622,24 @@ class PdoGsb
      * Valide la fiche de frais
      *
      * @param String $id id du visiteur
-     * @param String $date date de la fiche a valider
+     * @param String $mois mois de la fiche a valider
      * @param Int $montant montant a validé
      *
      * @return null
      */
-    public function validerFichesDeFrais(string $id, string $date, int $montant)
+    public function validerFichesDeFrais(string $id,string $mois,int $montant)
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
                 'UPDATE fichefrais'
                 . ' SET fichefrais.idetat = "VA"'
                 . ' fichefrais.montantvalidee = :unMontant'
                 . ' fichefrais.datemodif = CAST(NOW() as DATE)'
-                . ' WHERE fichefrais.idvisiteur = :unId && fichefrais.mois = :uneDate'
+                . ' WHERE fichefrais.idvisiteur = :unId && fichefrais.mois = :leMois'
         
         );
         $requetePrepare->bindParam(':unId', $id, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':laDate', $date, PDO::PARAM_STR);
-        $requetePrepare->bindPram(':unMontant', $montant, PDO::PARAM_INT);
+        $requetePrepare->bindParam(':leMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_INT);
         $requetePrepare->execute();
     }
     
@@ -666,8 +666,8 @@ class PdoGsb
         );
         $requetePrepare->bindParam(':unId', $id, PDO::PARAM_STR);
         $requetePrepare->bindParam(':laDate', $date, PDO::PARAM_STR);
-        $requetePrepare->bindPram(':unLibelle', $libelle, PDO::PARAM_INT);
-        $requetePrepare->bindPram(':unMontant', $montant, PDO::PARAM_INT);
+        $requetePrepare->bindParam(':unLibelle', $libelle, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_INT);
         $requetePrepare->execute();
     }
 }

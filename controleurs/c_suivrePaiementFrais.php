@@ -8,21 +8,21 @@
 
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 $idcomptable = $_SESSION['idComptable'];
+$date = date('Ym');
 switch ($action) {
   case 'selectionnerSuiviV':
-    $lesVisiteurs = $pdo->getListeVisiteurVA();
+    $_SESSION['date'] = $date;
+    $lesVisiteurs = $pdo->getListeVisiteurVA($date);
     include 'vues/comptable/v_listeVisiteur.php';
     break;
-  case 'moisVisiteur':
+  case 'afficheFiche':
     $id_vst = filter_input(INPUT_POST, "lstVisiteurs");
     $_SESSION['idVisiteur'] = $id_vst;
-    $lesMois = $pdo->getLesMoisDisponibles($_SESSION['idVisiteur']);
-    $lesCles = array_keys($lesMois);
-    $moisASelectionner = $lesCles[0];
+    $moisCourant =
     include 'vues/comptable/v_listeMoisComptable.php';
-    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['idVisiteur'], $moisASelectionner);
-    $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['idVisiteur'], $moisASelectionner);
-    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($_SESSION['idVisiteur'], $moisASelectionner);
+    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['idVisiteur'], $_SESSION['date']);
+    $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['idVisiteur'], $_SESSION['date']);
+    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($_SESSION['idVisiteur'], $_SESSION['date']);
     $numAnnee = substr($moisASelectionner, 0, 4);
     $numMois = substr($moisASelectionner, 4, 2);
     $libEtat = $lesInfosFicheFrais['libEtat'];

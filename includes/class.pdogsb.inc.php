@@ -602,7 +602,7 @@ class PdoGsb
    * 
    * 
    */
-  public function getListeVisiteurVA() {
+  public function getListeVisiteurVA(string $date) {
     $requetePrepare = PdoGsb::$monPdo->prepare(
             'SELECT visiteur.id as id,'
             . ' visiteur.nom as nom,'
@@ -610,8 +610,9 @@ class PdoGsb
             . ' idetat as etat'
             . ' FROM visiteur left join fichefrais on visiteur.id=fichefrais.idvisiteur'
             . ' WHERE idetat= "VA"'
-            . ' AND mois like "2020%"'
+            . ' AND mois = :unMois'
     );
+    $requetePrepare->bindParam(':unMois', $date, PDO::PARAM_STR);
     $requetePrepare->execute();
     $lesVisiteurs = array();
     $lignes = $requetePrepare->fetchAll();

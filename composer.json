@@ -1,0 +1,13 @@
+{
+    "name": "vendor/g-s-b-appli-m-v-c",
+    "description": "Description of project GSB_AppliMVC.",
+    "authors": [
+        {
+            "name": "dussart.luke",
+            "email": "lukedussart@hotmail.fr"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "9.5.0"
+    }
+}

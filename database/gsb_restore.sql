@@ -1,5 +1,13 @@
 -- Script de restauration de l'application "GSB Frais"
 
+-- Suppression de la base de données 
+DROP DATABASE IF EXISTS gsb_frais;
+
+-- Suppression des privilèges 
+
+FLUSH privileges; 
+
+
 -- Administration de la base de données
 CREATE DATABASE gsb_frais ;
 GRANT SHOW DATABASES ON *.* TO userGsb@localhost IDENTIFIED BY 'secret';

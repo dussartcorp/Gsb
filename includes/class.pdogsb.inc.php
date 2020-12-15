@@ -631,6 +631,11 @@ class PdoGsb
     return $lesVisiteurs;
   } 
   
+  public function updateFrais() {
+    $requetePrepare = PdoGsb::$monPdo->prepare(
+            '')
+  }
+  
   
   /**
    * Recupere l'id d'un visiteur via son nom et prenom

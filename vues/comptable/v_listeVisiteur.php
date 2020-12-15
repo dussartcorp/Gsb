@@ -41,6 +41,8 @@
   <h2>Suivi fiche de frais</h2>
   <div class="row">
     <div class="col-md-4">
+      <h4>Les visiteurs sont ceux du mois courantes, ayant une fiche de frais validée
+      qui faut mettre en paiement.</h4>
       <h3>Sélectionner un visiteur : </h3>
     </div>
     <div class="col-md-4">

@@ -139,4 +139,6 @@
             ?>
         </table>
     </div>
+    <input id="" type="submit" value="Valider" class="btn btn-success" 
+               role="button">
 <?php } ?>

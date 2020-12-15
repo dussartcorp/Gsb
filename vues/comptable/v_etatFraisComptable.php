@@ -89,11 +89,7 @@
       <div>Nombre de justificatifs : <input type="text" id="nbJustificatifs" value=<?php $nbJustificatifs ?>></div>
       <br>
     </fieldset>
-  </form>
-  <form action="index.php?uc=etatFraisComptable&action=validerFicheFrais"
-        method="post" role="form">
-       <fieldset>
-         <button class="btn btn-success" type="submit" onclick="return confirm('Voulez-vous vraiment valider cette fiche de frais?');">Valider</button>
-       </fieldset>
-  </form>
+    <button class="btn btn-success" type="submit" href="index.php?uc=etatFraisComptable&action=validerFicheFrais" 
+            onclick="return confirm('Voulez-vous vraiment valider cette fiche de frais?');">Valider</button>
+       
 </div>

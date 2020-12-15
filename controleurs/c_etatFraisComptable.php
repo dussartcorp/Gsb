@@ -41,12 +41,6 @@ case 'voirEtatFrais':
     $montantValide = $lesInfosFicheFrais['montantValide'];
     $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
     $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
-    $dateR = filter_input(INPUT_POST,'dateR',FILTER_SANITIZE_STRING);
-    $libelle = filter_input(INPUT_POST,'libelle',FILTER_SANITIZE_STRING);
-    $montant = filter_input(INPUT_POST,'montant',FILTER_SANITIZE_STRING);
-    $_SESSION['dateR'] = $dateR;
-    $_SESSION['lib'] = $libelle;
-    $_SESSION['montant'] = $montant;
     include 'vues/comptable/v_etatFraisComptable.php'; 
     break;
 case 'validerFicheFrais':
@@ -58,6 +52,12 @@ case 'modifierElementFicheHorsFrais':
     $pdo->modifierElementFicheHorsFrais($_SESSION['idVisi'],$_SESSION['dateR'],$_SESSION['lib'],$_SESSION['montant']);
     break;
 case 'modifierElementForfaitisés':
-    $pdo->majFraisForfait($_SESSION['idVisi'],$_SESSION['mois'],array());
+    $lesFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
+    if (lesQteFraisValides($lesFrais)) {
+        $pdo->majFraisForfait($_SESSION['idVisi'], $_SESSION['mois'], $lesFrais);
+    } else {
+        ajouterErreur('Les valeurs des frais doivent être numériques');
+        include 'vues/v_erreurs.php';
+    }
     break;
 }

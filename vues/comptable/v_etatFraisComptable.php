@@ -19,7 +19,7 @@
 
 <div class="panel panel-info">
   <div class="panel-heading" style = "background-color: #FA8072;">Eléments forfaitisés</div>
-  <form action="index.php?uc=gererFraisComptable&action=validerMajFraisForfait" 
+  <form action="index.php?uc=etatFraisComptable&action=modifierElementForfaitisés" 
         method="post" role="form">
     <fieldset>   
         <?php

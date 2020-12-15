@@ -14,7 +14,7 @@ case 'saisirFrais':
 case 'validerMajFraisForfait':
     $lesFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
     if (lesQteFraisValides($lesFrais)) {
-        $pdo->majFraisForfait($_SESSION['idVisi'], $mois, $lesFrais);
+        $pdo->majFraisForfait($_SESSION['idVisi'], $_SESSION['idVisi'], $lesFrais);
     } else {
         ajouterErreur('Les valeurs des frais doivent être numériques');
         include 'vues/v_erreurs.php';

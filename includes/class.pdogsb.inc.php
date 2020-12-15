@@ -633,7 +633,7 @@ class PdoGsb
   
   public function updateFrais() {
     $requetePrepare = PdoGsb::$monPdo->prepare(
-            '')
+            '');
   }
   
   

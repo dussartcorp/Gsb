@@ -44,12 +44,39 @@ case 'voirEtatFrais':
     include 'vues/comptable/v_etatFraisComptable.php'; 
     break;
 case 'validerFicheFrais':
+    $pdo->validerFichesDeFrais($_SESSION['idVisi'], $_SESSION['mois']);
+    $lesMois = $pdo->getLesMoisDisponibles($_SESSION['idVisi']);
+    $moisASelectionner = $_SESSION['mois'];
+    include 'vues/comptable/v_listeMoisComptable.php';
+    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['idVisi'], $_SESSION['mois']);
+    $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['idVisi'], $_SESSION['mois']);
+    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($_SESSION['idVisi'], $_SESSION['mois']);
+    $numAnnee = substr($_SESSION['mois'], 0, 4);
+    $numMois = substr($_SESSION['mois'], 4, 2);
+    $libEtat = $lesInfosFicheFrais['libEtat'];
+    $montantValide = $lesInfosFicheFrais['montantValide'];
+    $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
+    $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
+    include 'vues/comptable/v_etatFraisComptable.php'; 
+    break;
+case 'modifierElementFicheHorsFrais':  
     $laDate = filter_input(INPUT_POST, 'date', FILTER_SANITIZE_STRING);
     $unMontant = filter_input(INPUT_POST, 'montant', FILTER_SANITIZE_STRING);
-    $pdo->validerFichesDeFrais($_SESSION['idVisi'],$laDate,$unMontant);
-    break;
-case 'modifierElementFicheHorsFrais':
-    $pdo->modifierElementFicheHorsFrais($_SESSION['idVisi'],$_SESSION['dateR'],$_SESSION['lib'],$_SESSION['montant']);
+    $unLibelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
+    $pdo->modifierElementFicheHorsFrais($_SESSION['idVisi'],$laDate,$unMontant,$unLibelle);
+    $lesMois = $pdo->getLesMoisDisponibles($_SESSION['idVisi']);
+    $moisASelectionner = $_SESSION['mois'];
+    include 'vues/comptable/v_listeMoisComptable.php';
+    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['idVisi'], $_SESSION['mois']);
+    $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['idVisi'], $_SESSION['mois']);
+    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($_SESSION['idVisi'], $_SESSION['mois']);
+    $numAnnee = substr($_SESSION['mois'], 0, 4);
+    $numMois = substr($_SESSION['mois'], 4, 2);
+    $libEtat = $lesInfosFicheFrais['libEtat'];
+    $montantValide = $lesInfosFicheFrais['montantValide'];
+    $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
+    $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
+    include 'vues/comptable/v_etatFraisComptable.php'; 
     break;
 case 'modifierElementForfaitisés':
     $lesFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
@@ -59,5 +86,22 @@ case 'modifierElementForfaitisés':
         ajouterErreur('Les valeurs des frais doivent être numériques');
         include 'vues/v_erreurs.php';
     }
+    $lesMois = $pdo->getLesMoisDisponibles($_SESSION['idVisi']);
+    $moisASelectionner = $_SESSION['mois'];
+    include 'vues/comptable/v_listeMoisComptable.php';
+    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['idVisi'], $_SESSION['mois']);
+    $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['idVisi'], $_SESSION['mois']);
+    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($_SESSION['idVisi'], $_SESSION['mois']);
+    $numAnnee = substr($_SESSION['mois'], 0, 4);
+    $numMois = substr($_SESSION['mois'], 4, 2);
+    $libEtat = $lesInfosFicheFrais['libEtat'];
+    $montantValide = $lesInfosFicheFrais['montantValide'];
+    $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
+    $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
+    include 'vues/comptable/v_etatFraisComptable.php'; 
+    break;
+case 'supprimerFrais':
+    $idFrais = filter_input(INPUT_GET, 'idFrais', FILTER_SANITIZE_STRING);
+    $pdo->supprimerFraisHorsForfait($idFrais);
     break;
 }

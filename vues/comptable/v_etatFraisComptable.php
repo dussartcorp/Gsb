@@ -77,7 +77,7 @@
                   <td><a href="index.php?uc=etatFraisComptable&action=modifierElementFicheHorsFrais&idFrais=<?php echo $id ?>" 
                          onclick="return confirm('Voulez-vous vraiment changer cette fiche de frais?');"><button class="btn btn-success" type="submit">Corriger</button></a>
                     <a href="index.php?uc=etatFraisComptable&action=supprimerFrais&idFrais=<?php echo $id ?>" 
-                       onchange="return 'REFUSE:'+'<?php$libelle?>';"><button class="btn btn-danger" type="submit">Supprimer</button></a></td>
+                       onclick="return confirm('Voulez-vous vraiment supprimer cette fiche de frais?');"><button class="btn btn-danger" type="submit">Supprimer</button></a></td>
                 </tr>
                 <?php
             }
@@ -85,7 +85,7 @@
           </tbody>  
         </table> 
       </div>
-      <!-- C'est pour le visuel n'a pas encore d'utilité propre -->
+      <!-- C'est pour le visuel n'a pas  d'utilité propre -->
       <div>Nombre de justificatifs : <input type="text" id="nbJustificatifs" value=<?php $nbJustificatifs ?>></div>
       <br>
     </fieldset>
@@ -93,7 +93,7 @@
   <form action="index.php?uc=etatFraisComptable&action=validerFicheFrais"
         method="post" role="form">
        <fieldset>
-         <button class="btn btn-success" type="submit">Valider</button>
+         <button class="btn btn-success" type="submit" onclick="return confirm('Voulez-vous vraiment valider cette fiche de frais?');">Valider</button>
        </fieldset>
   </form>
 </div>

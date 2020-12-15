@@ -623,23 +623,20 @@ class PdoGsb
      *
      * @param String $id id du visiteur
      * @param String $mois mois de la fiche a valider
-     * @param Int $montant montant a validé
      *
      * @return null
      */
-    public function validerFichesDeFrais(string $id,string $mois,int $montant)
+    public function validerFichesDeFrais(string $id,string $mois)
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
                 'UPDATE fichefrais'
                 . ' SET fichefrais.idetat = "VA"'
-                . ' fichefrais.montantvalidee = :unMontant'
                 . ' fichefrais.datemodif = CAST(NOW() as DATE)'
                 . ' WHERE fichefrais.idvisiteur = :unId && fichefrais.mois = :leMois'
         
         );
         $requetePrepare->bindParam(':unId', $id, PDO::PARAM_STR);
         $requetePrepare->bindParam(':leMois', $mois, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_INT);
         $requetePrepare->execute();
     }
     

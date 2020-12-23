@@ -162,7 +162,7 @@
                                accept=""role="button"> 
                         <input id="annuler" type="reset" value="Réinitialiser" class="btn btn-warning"" 
                                accept=""role="button">
-                        <a href="index.php?uc=validerFicheDeFrais&action=supprimerFrais&idFrais=<?php echo $id ?>&mois=<?php echo $frais['mois'] ?>&idVisiteur=<?php echo $_SESSION['visiteur'] ?> " 
+                        <a href="index.php?uc=validerFicheDeFrais&action=supprimerFrais&idFrais=<?php echo $id ?>&mois=<?php echo $frais['mois'] ?>&idVisiteur=<?php echo $_SESSION['idVisi'] ?> " 
                            type="reset" class="btn btn-danger" role="button"
                            onclick="return confirm('Voulez-vous vraiment supprimer ou reporter ce frais hors forfait?');">Supprimer</a>
                     </td>

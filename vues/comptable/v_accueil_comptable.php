@@ -34,7 +34,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
-                        <a href="index.php?uc=etatFraisComptable&action=selectionnerVisiteur"
+                        <a href="index.php?uc=validerFichesDeFrais&action=selectionnerVisiteur"
                            class="btn btn-danger btn-lg" role="button">
                             <span class="fas fa-check"></span>
                             <br>Valider les fiches de frais</a>

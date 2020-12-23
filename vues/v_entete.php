@@ -90,7 +90,7 @@
                     </a>
                   </li>
                   <li <?php if ($uc == 'etatFraisComptable') { ?>class="active1"<?php } ?>>
-                    <a href="index.php?uc=etatFraisComptable&action=selectionnerVisiteur" class="couleur">
+                    <a href="index.php?uc=validerFichesDeFrais&action=selectionnerVisiteur" class="couleur">
                       <span class="fa fa-check"></span>
                       Valider les fiches de frais
                     </a>

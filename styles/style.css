@@ -1,3 +1,14 @@
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
 .header {
     margin-top: 10px;
+}
+
+.couleur{
+    color: #E02A2A;
+}
+
+.couleur:hover, .couleur:focus{
+    background-color: #F2F2F2;
+    color: #E02A2A;
 }

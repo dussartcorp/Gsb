@@ -24,8 +24,8 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
+        <div class="panel panel-primary" style="border-color: #E02A2A !important;">
+            <div class="panel-heading" style="background-color: #E02A2A !important; border-color: #E61616 !important;">
                 <h3 class="panel-title">
                     <span class="glyphicon glyphicon-bookmark"></span>
                     Navigation
@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                         <a href="index.php?uc=etatFraisComptable&action=selectionnerVisiteur"
-                           class="btn btn-primary btn-lg" role="button">
+                           class="btn btn-danger btn-lg" role="button">
                             <span class="fas fa-check"></span>
                             <br>Valider les fiches de frais</a>
                     </div>

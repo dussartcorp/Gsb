@@ -7,7 +7,7 @@
  */
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 $idcomptable = $_SESSION['idComptable'];
-
+$montants = 0;
 switch ($action) {
 case 'selectionnerVisiteur':
      $lesVisiteurs = $pdo->getListeVisiteurs(); 
@@ -37,11 +37,7 @@ case 'voirEtatFrais':
     $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($_SESSION['idVisi'], $leMois);
     $numAnnee = substr($leMois, 0, 4);
     $numMois = substr($leMois, 4, 2);
-    $libEtat = $lesInfosFicheFrais['libEtat'];
-    $montantValide = $lesInfosFicheFrais['montantValide'];
-    $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
-    $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
-    include 'vues/comptable/v_etatFraisComptable.php'; 
+   include 'vues/comptable/v_etatFraisComptable.php'; 
     break;
 case 'validerFicheFrais':
     $pdo->validerFichesDeFrais($_SESSION['idVisi'], $_SESSION['mois']);

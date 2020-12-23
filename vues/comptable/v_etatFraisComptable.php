@@ -16,80 +16,165 @@
  */
 ?>
 <hr>
-
-<div class="panel panel-info">
-  <div class="panel-heading" style = "background-color: #FA8072;">Eléments forfaitisés</div>
-  <form action="index.php?uc=etatFraisComptable&action=modifierElementForfaitisés" 
-        method="post" role="form">
-    <fieldset>   
-        <?php
-        foreach ($lesFraisForfait as $unFrais) {
-            $idFrais = $unFrais['idfrais'];
-            $libelle = htmlspecialchars($unFrais['libelle']);
-            $quantite = $unFrais['quantite'];
-            ?>
-          <div class="form-group">
-            <label for="idFrais"><?php echo $libelle ?></label>
-            <input type="text" id="idFrais" 
-                   name="lesFrais[<?php echo $idFrais ?>]"
-                   size="5" maxlength="5" 
-                   value="<?php echo $quantite ?>" 
-                   class="form-control">
-          </div>
-          <?php
-      }
-      ?>
-      <button class="btn btn-success" type="submit">Corriger</button>
-    </fieldset>
-  </form>
-</div>
-
-
-<div class="row">
-  <form action="index.php?uc=etatFraisComptable&action=modifierElementFicheHorsFrais" 
-        method="post" role="form">
-    <fieldset>
-      <div class="panel panel-info">
-        <div class="panel-heading">Descriptif des éléments hors forfait</div>
+<form method="post" 
+      action="index.php?uc=validerFichesDeFrais&action=CorrigerNbJustificatifs" 
+      role="form">
+    <div class="panel panel-info" style="border-color: #E02A2A;">
+        <div class="panel-heading" style="border-color: #E02A2A; background-color: #E02A2A; color: white;">Fiche</div>
         <table class="table table-bordered table-responsive">
-          <thead>
             <tr>
-              <th class="date">Date</th>
-              <th class="libelle">Libellé</th>  
-              <th class="montant">Montant</th>  
-              <th class="action">&nbsp;</th> 
+                <th>Date de modification</th>
+                <th>Nombre de justificatifs</th>
+                <th>Montant</th>
+                <th>IdEtat</th>
+                <th>Libelle Etat</th>
             </tr>
-          </thead>  
-          <tbody>
-              <?php
-              foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
-                  $libelle = htmlspecialchars($unFraisHorsForfait['libelle']);
-                  $date = $unFraisHorsForfait['date'];
-                  // Met la date sous format americain
-                  $dateR = implode('-', array_reverse(explode('/', $date)));
-                  $montant = $unFraisHorsForfait['montant'];
-                  $id = $unFraisHorsForfait['id'];
-                  ?>           
+            <?php
+            foreach ($lesInfosFicheFrais as $infoFiche) {
+                $date = $infoFiche['dateModif'];
+
+                foreach ($lesFraisHorsForfait as $frais) {
+                    $montant = $frais['montant'];
+                    $montants += $montant;
+                }
+                foreach ($lesFraisForfait as $frais) {
+                    $idLibelle = $frais['idfrais'];
+                    $fraiskm = $frais['fraiskm'];
+                    if ($idLibelle !== 'KM') {
+                        $montant = $frais['quantite'] * $frais['prix'];
+                    } else {
+                        $montant = $frais['quantite'] * $fraiskm;
+                    }
+                    $montants += $montant;
+                }
+                $nbJustificatifs = $infoFiche['nbJustificatifs'];
+                $libelle = $infoFiche['libEtat'];
+                $idEtat = $infoFiche['idEtat'];
+                ?>
                 <tr>
-                  <td><input type="date" id="date" value=<?php echo $dateR ?>></td>
-                  <td><input type="text" id="libelle" value=<?php echo $libelle ?>></td>
-                  <td><input type="text" id="montant" value=<?php echo $montant ?>></td>
-                  <td><a href="index.php?uc=etatFraisComptable&action=modifierElementFicheHorsFrais&idFrais=<?php echo $id ?>" 
-                         onclick="return confirm('Voulez-vous vraiment changer cette fiche de frais?');"><button class="btn btn-success" type="submit">Corriger</button></a>
-                    <a href="index.php?uc=etatFraisComptable&action=supprimerFrais&idFrais=<?php echo $id ?>" 
-                       onclick="return confirm('Voulez-vous vraiment supprimer cette fiche de frais?');"><button class="btn btn-danger" type="submit">Supprimer</button></a></td>
+                    <td><?php echo $date ?></td>
+                    <td><div class="form-group">
+                            <input type="text" 
+                                   name="nbJust"
+                                   size="1" maxlength="5" 
+                                   value="<?php echo $nbJustificatifs ?>">
+                        </div></td>
+                    <td><?php echo $montants ?></td>
+                    <td><?php echo $idEtat ?></td>
+                    <td><?php echo $libelle ?></td>
                 </tr>
-                <?php
-            }
-            ?>
-          </tbody>  
-        </table> 
-      </div>
-      <!-- C'est pour le visuel n'a pas  d'utilité propre -->
-      <div>Nombre de justificatifs : <input type="text" id="nbJustificatifs" value=<?php $nbJustificatifs ?>></div>
-      <br>
-    </fieldset>
-    <button class="btn btn-success" type="submit" href="index.php?uc=etatFraisComptable&action=validerFicheFrais" 
-            onclick="return confirm('Voulez-vous vraiment valider cette fiche de frais?');">Valider</button>
-       
-</div>
+<?php } ?>
+        </table>
+    </div>
+    <input id="nBJustif" type="submit" value="Corriger" class="btn btn-success" 
+           role="button"> 
+    <input id="annuler" type="reset" value="Réinitialiser" class="btn btn-warning" 
+           role="button">
+</form></br> </br>
+<form method="post" 
+      action="index.php?uc=validerFichesDeFrais&action=CorrigerFraisForfait" 
+      role="form">
+    <div class="panel panel-info" style="border-color: #E02A2A;">
+        <div class="panel-heading" style="border-color: #E02A2A; background-color: #E02A2A; color: white;">Eléments forfaitisés</div>
+        <table class="table table-bordered table-responsive">
+            <tr>
+                <th>Libelle</th>
+                <th>IDLibelle</th>
+                <th>Quantités</th>
+                <th>Prix</th>
+            </tr>
+            <?php
+            foreach ($lesFraisForfait as $frais) {
+                $idLibelle = $frais['idfrais'];
+                $libelleFrais = $frais['libelle'];
+                $quantite = $frais['quantite'];
+                $prix = $frais['prix'];
+                $fraiskm = $frais['fraiskm'];
+                ?>
+                <tr>
+                    <td><?php echo $libelleFrais ?></td>
+                    <td><?php echo $idLibelle ?></td>
+                    <td><div class="form-group">
+                            <input type="text" id="idFrais" 
+                                   name="lesFrais[<?php echo $idLibelle ?>]"
+                                   size="1" maxlength="5" 
+                                   value="<?php echo $quantite ?>" 
+                                   class="form-control">
+                            <?php if ($idLibelle !== 'KM') { ?>
+                                <td><?php echo $prix ?></td>
+                            <?php } else { ?>
+                                <td><?php echo $fraiskm ?></td>
+    <?php } ?>
+                        </div></td>
+                </tr>
+
+<?php } ?>
+        </table>
+    </div>
+    <input id="okElemForf" type="submit" value="Corriger" class="btn btn-success" 
+           role="button"> 
+    <input id="annuler" type="reset" value="Réinitialiser" class="btn btn-warning" 
+           role="button">
+</form></br> </br>
+<form method="post" 
+      action="index.php?uc=validerFichesDeFrais&action=CorrigerElemHorsForfait" 
+      role="form">
+    <div class="panel panel-info" style="border-color: #E02A2A;">
+        <div class="panel-heading" style="border-color: #E02A2A; background-color: #E02A2A; color: white;">Eléments hors-forfait</div>
+        <table class="table table-bordered table-responsive">
+            <tr>
+                <th>Date</th>
+                <th>Libelle</th>
+                <th>Montant</th>
+                <th></th>
+            </tr>
+            <?php
+            foreach ($lesFraisHorsForfait as $frais) {
+                $date = $frais['date'];
+                $datee = implode('-', array_reverse(explode('/', $date))); /* transforme une date fr en une date us -> 29/10/2020 en 2020-10-29 */
+                $libellehorsFrais = $frais['libelle'];
+                $montant = $frais['montant'];
+                $id = $frais['id'];
+                ?>
+                <tr>
+                    <td><div class="form-group">
+                            <label for="date"></label>
+                            <input type="date" 
+                                   name="lesDates[<?php echo $id ?>]"
+                                   size="10" maxlength="15" 
+                                   value="<?php echo $datee ?>">
+                        </div></td>
+                    <td><div class="form-group">
+                            <label for="libelle"></label>
+                            <input type="text" 
+                                   name="lesLibelles[<?php echo $id ?>]"
+                                   size="15" maxlength="40" 
+                                   value="<?php echo $libellehorsFrais ?>">
+                        </div></td>
+                    <td><div class="form-group">
+                            <label for="montant"></label>
+                            <input type="text" 
+                                   name="lesMontants[<?php echo $id ?>]"
+                                   size="10" maxlength="15" 
+                                   value="<?php echo $montant ?>"> €
+                        </div></td>
+                    <td><input id="okElemHorsForf" name="corriger[<?php echo $id ?>]" type="submit" value="Corriger" class="btn btn-success" 
+                               accept=""role="button"> 
+                        <input id="annuler" type="reset" value="Réinitialiser" class="btn btn-warning"" 
+                               accept=""role="button">
+                        <a href="index.php?uc=validerFicheDeFrais&action=supprimerFrais&idFrais=<?php echo $id ?>&mois=<?php echo $frais['mois'] ?>&idVisiteur=<?php echo $_SESSION['visiteur'] ?> " 
+                           type="reset" class="btn btn-danger" role="button"
+                           onclick="return confirm('Voulez-vous vraiment supprimer ou reporter ce frais hors forfait?');">Supprimer</a>
+                    </td>
+
+                </tr>
+<?php } ?>
+        </table>
+    </div>
+</form>
+<form method="post" 
+      action="index.php?uc=ValiderFicheDeFrais&action=Valider" 
+      role="form">
+    <input id="okFicheFrais" type="submit" value="Valider" class="btn btn-success" 
+           accept=""role="button" onclick="return confirm('Voulez-vous vraiment valider cette fiche de frais ?');"> 
+</form></br></br>

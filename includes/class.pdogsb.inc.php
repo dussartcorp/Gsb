@@ -634,8 +634,8 @@ class PdoGsb {
   public function getIdVisiteur(string $nom, string $prenom) {
     $requetePrepare = PdoGsb::$monPdo->prepare(
       'SELECT visiteur.id'
-      . 'FROM visiteur'
-      . 'WHERE visiteur.nom = :unNom && visiteur.prenom = :unPrenom'
+      . ' FROM visiteur'
+      . ' WHERE visiteur.nom = :unNom && visiteur.prenom = :unPrenom'
     );
     $requetePrepare->bindParam(':unNom', $nom, PDO::PARAM_STR);
     $requetePrepare->bindParam(':unPrenom', $prenom, PDO::PARAM_STR);
@@ -651,14 +651,14 @@ class PdoGsb {
    * @param type $mois mois de la fiche a valider
    * @param type $montant montant de la fiche à valider
    */
-  public function validerFicheDeFrais(int $idVisiteur, string $mois, int $montant) {
+  public function validerFicheDeFrais(string $idVisiteur, string $mois, int $montant) {
     $dateCourante = date('Y-m-d');
     $idEtat = 'VA';
     $requetePrepare = PdoGSB::$monPdo->prepare(
       'UPDATE fichefrais '
       . 'SET fichefrais.montantvalide = :unMontant, fichefrais.datemodif = :uneDate, fichefrais.idetat = :unIdEtat '
       . 'WHERE fichefrais.idvisiteur = :unIdVisiteur '
-      . 'AND fichefrais.mois = :unMois '
+      . 'AND fichefrais.mois = :unMois'
     );
     $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_INT);
     $requetePrepare->bindParam(':uneDate', $dateCourante, PDO::PARAM_STR);
@@ -754,4 +754,27 @@ class PdoGsb {
     return $mois;
   }
 
+  
+  /**
+   *  Fonction qui permet de retirer le montant en paramètre au montant validé 
+   *  après report ou suppression du frais
+   * 
+   * @param string $idVisiteur l'id du visiteur
+   * @param string $mois le mois de la fiche de frais à modifier
+   * @param string $montant le montant à soustraire au montant.
+   */
+  public function retirerMontantFicheFrais(string $idVisiteur, string $mois, string $montant){
+    $dateCourante = date('Y-m-d');
+    $requetePrepare = PdoGsb::$monPdo->prepare(
+      'UPDATE fichefrais '
+      . 'SET fichefrais.montantValide = fichefrais.montantValide - :unMontant '
+      . 'WHERE fichefrais.idvisiteur = :unIdVisiteur '
+      . 'AND fichefrais.mois = :unMois ');
+    
+    $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_INT);
+    $requetePrepare->bindParam(':uneDate', $dateCourante, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+    $requetePrepare->execute();
+  }
 }

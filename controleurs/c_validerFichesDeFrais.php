@@ -44,6 +44,7 @@ switch ($action) {
     $numAnnee = substr($leMois, 0, 4);
     $numMois = substr($leMois, 4, 2);
     include 'vues/comptable/v_etatFraisComptable.php';
+    $_SESSION['montant'] = $montants;
     break;
   case 'CorrigerNbJustificatifs' :
     $lesMois = $pdo->getLesMoisDisponiblesCR($_SESSION['idVisi']);
@@ -118,19 +119,25 @@ switch ($action) {
     break;
   case 'supprimerFrais':
     $unIdFrais = filter_input(INPUT_GET, 'idFrais', FILTER_SANITIZE_NUMBER_INT);
+    $leMontant = filter_input(INPUT_GET, 'montant', FILTER_SANITIZE_NUMBER_INT);
     $ceMois = filter_input(INPUT_GET, 'mois', FILTER_SANITIZE_STRING);
     $idVisiteur = filter_input(INPUT_GET, 'idVisiteur', FILTER_SANITIZE_STRING);
+    $mois = $_SESSION['date'];
     ?></br>
     <div class="alert alert-info" role="alert">
       <p><h4>Voulez vous modifier ou supprimer le frais?<br></h4>
-      <a href="index.php?uc=validerFichesDeFrais&action=supprimer&idFrais=<?php echo $unIdFrais ?>">Supprimer</a> 
-      ou <a href="index.php?uc=validerFichesDeFrais&action=reporter&idFrais=<?php echo $unIdFrais ?>&mois=<?php echo $ceMois ?>&id=<?php echo $idVisiteur ?>">Reporter</a></p>
+      <a href="index.php?uc=validerFichesDeFrais&action=supprimer&idFrais=<?php echo $unIdFrais ?>&id=<?php echo $idVisiteur ?>&montant=<?php echo $leMontant ?>&mois=<?php echo $mois ?>">Supprimer</a> 
+      ou <a href="index.php?uc=validerFichesDeFrais&action=reporter&idFrais=<?php echo $unIdFrais ?>&mois=<?php echo $ceMois ?>&id=<?php echo $idVisiteur ?>&montant=<?php echo $leMontant ?>&mois=<?php echo $mois ?>">Reporter</a></p>
     </div>
     <?php
     break;
   case 'supprimer':
     $idFrais = filter_input(INPUT_GET, 'idFrais', FILTER_SANITIZE_NUMBER_INT);
+    $leMontant = filter_input(INPUT_GET, 'montant', FILTER_SANITIZE_NUMBER_INT);
+    $mois = filter_input(INPUT_GET, 'mois', FILTER_SANITIZE_STRING);
+    $idVisiteur = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
     $pdo->refuserFraisHorsForfait($idFrais);
+    
     ?>
     <div class="alert alert-info" role="alert">
       <p>Ce frais hors forfait a bien été supprimé! <a href = "index.php?uc=validerFichesDeFrais&action=selectionnerVisiteur">Cliquez ici</a>
@@ -144,6 +151,8 @@ switch ($action) {
     $mois = filter_input(INPUT_GET, 'mois', FILTER_SANITIZE_STRING);
     $moisSuivant = $pdo->getMoisSuivant($mois);
     $idVisiteur = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
+    $leMontant = filter_input(INPUT_GET, 'montant', FILTER_SANITIZE_NUMBER_INT);
+    $mois = filter_input(INPUT_GET, 'mois', FILTER_SANITIZE_STRING);
     if ($pdo->estPremierFraisMois($idVisiteur, $moisSuivant)) {
       $pdo->creeNouvellesLignesFrais($idVisiteur, $moisSuivant);
     }
@@ -156,6 +165,7 @@ switch ($action) {
     <?php
     break;
   case 'Valider' :
+    var_dump($_SESSION);
     $pdo->validerFicheDeFrais($_SESSION['idVisi'], $_SESSION['date'], $_SESSION['montant']);
     ?> </br>
     <div class = "alert alert-success" role = "alert">

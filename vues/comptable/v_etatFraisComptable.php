@@ -202,7 +202,7 @@
   </div>
 </form>
 <form method="post" 
-      action="index.php?uc=ValiderFicheDeFrais&action=Valider" 
+      action="index.php?uc=validerFichesDeFrais&action=Valider" 
       role="form">
   <input id="okFicheFrais" type="submit" value="Valider" class="btn btn-success" 
          accept=""role="button" onclick="return confirm('Voulez-vous vraiment valider cette fiche de frais ?');"> 

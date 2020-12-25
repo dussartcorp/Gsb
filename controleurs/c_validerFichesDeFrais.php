@@ -17,18 +17,25 @@ switch ($action) {
   case 'selectionnerMois':
     $idvst = filter_input(INPUT_POST, "lstVisiteurs", FILTER_SANITIZE_STRING);
     $_SESSION['idVisi'] = $idvst;
-    $lesMois = $pdo->getLesMoisDisponibles($_SESSION['idVisi']);
+    $lesMois = $pdo->getLesMoisDisponiblesCR($_SESSION['idVisi']);
     // Afin de sélectionner par défaut le dernier mois dans la zone de liste
     // on demande toutes les clés, et on prend la première,
     // les mois étant triés décroissants
-    $lesCles = array_keys($lesMois);
-    $moisASelectionner = $lesCles[0];
-    include 'vues/comptable/v_listeMoisComptable.php';
+    if (empty($lesMois)) {
+      ?></br><?php
+      ajouterErreur("Aucune fiche de frais n'est à valider pour ce visiteur. Veuillez-en choisir un autre");
+      include 'vues/v_erreurs.php';
+      include 'vues/comptable/v_listeMoisComptable.php';
+    } else {
+      $lesCles = array_keys($lesMois);
+      $moisASelectionner = $lesCles[0];
+      include 'vues/comptable/v_listeMoisComptable.php';
+    }
     break;
   case 'voirEtatFrais':
     $leMois = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
     $_SESSION['date'] = $leMois;
-    $lesMois = $pdo->getLesMoisDisponibles($_SESSION['idVisi']);
+    $lesMois = $pdo->getLesMoisDisponiblesCR($_SESSION['idVisi']);
     $moisASelectionner = $leMois;
     include 'vues/comptable/v_listeMoisComptable.php';
     $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['idVisi'], $leMois);
@@ -39,11 +46,9 @@ switch ($action) {
     include 'vues/comptable/v_etatFraisComptable.php';
     break;
   case 'CorrigerNbJustificatifs' :
-    $lesMois = $pdo->$pdo->getLesMoisDisponibles($_SESSION['idVisi']);
+    $lesMois = $pdo->getLesMoisDisponiblesCR($_SESSION['idVisi']);
     $moisASelectionne = $_SESSION['date'];
     include 'vues/comptable/v_listeMoisComptable.php';
-    $selectedValue = $_SESSION['idVisi'];
-    include 'vues/comptable/v_listeVisiteur.php';
     $nbJust = filter_input(INPUT_POST, 'nbJust', FILTER_DEFAULT);
     if (estEntierPositif($nbJust)) {
       $pdo->majNbJustificatifs($_SESSION['idVisi'], $_SESSION['date'], $nbJust);
@@ -54,18 +59,17 @@ switch ($action) {
       ajouterErreur('Les valeurs des frais doivent être numériques');
       include 'vues/v_erreurs.php';
     }
-    $infoFicheDeFrais = $pdo->getLesInfosFicheFrais($_SESSION['idVisi'], $_SESSION['date']);
-    $infoFraisForfait = $pdo->getLesFraisForfait($_SESSION['idVisi'], $_SESSION['date']);
-    $infoFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['idVisi'], $_SESSION['date']);
+    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['idVisi'], $_SESSION['date']);
+    $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['idVisi'], $_SESSION['date']);
+    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($_SESSION['idVisi'], $_SESSION['date']);
     include'vues/comptable/v_etatFraisComptable.php';
 
     break;
   case 'CorrigerFraisForfait':
-    $lesMois = $pdo->getLesMoisDisponibles($_SESSION['idVisi']);
+    $lesMois = $pdo->getLesMoisDisponiblesCR($_SESSION['idVisi']);
     $moisASelectionne = $_SESSION['date'];
     include 'vues/comptable/v_listeMoisComptable.php';
     $selectedValue = $_SESSION['idVisi'];
-    include 'vues/comptable/v_listeVisiteur.php';
     $lesFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
     if (lesQteFraisValides($lesFrais)) {
       $pdo->majFraisForfait($_SESSION['idVisi'], $_SESSION['date'], $lesFrais);
@@ -76,17 +80,16 @@ switch ($action) {
       ajouterErreur('Les valeurs des frais doivent être numériques');
       include 'vues/v_erreurs.php';
     }
-    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['idVisi'], $leMois);
-    $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['idVisi'], $leMois);
-    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($_SESSION['idVisi'], $leMois);
+    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['idVisi'], $_SESSION['date']);
+    $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['idVisi'], $_SESSION['date']);
+    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($_SESSION['idVisi'], $_SESSION['date']);
     include'vues/comptable/v_etatFraisComptable.php';
     break;
   case 'CorrigerElemHorsForfait' :
-    $lesMois = $pdo->getLesMoisDisponibles($_SESSION['idVisi']);
+    $lesMois = $pdo->getLesMoisDisponiblesCR($_SESSION['idVisi']);
     $moisASelectionne = $_SESSION['date'];
     include 'vues/comptable/v_listeMoisComptable.php';
     $selectedValue = $_SESSION['idVisi'];
-    include 'vues/comptable/v_listeVisiteur.php';
     $lesHorsForfaitDate = (filter_input(INPUT_POST, 'lesDates', FILTER_DEFAULT, FILTER_FORCE_ARRAY));
     $lesHorsForfaitLibelle = (filter_input(INPUT_POST, 'lesLibelles', FILTER_DEFAULT, FILTER_FORCE_ARRAY));
     $lesHorsForfaitMontant = (filter_input(INPUT_POST, 'lesMontants', FILTER_DEFAULT, FILTER_FORCE_ARRAY));
@@ -108,9 +111,9 @@ switch ($action) {
         }
       }
     }
-    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['idVisi'], $leMois);
-    $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['idVisi'], $leMois);
-    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($_SESSION['idVisi'], $leMois);
+    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['idVisi'], $_SESSION['date']);
+    $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['idVisi'], $_SESSION['date']);
+    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($_SESSION['idVisi'], $_SESSION['date']);
     include'vues/v_ValiderFicheDeFrais.php';
     break;
   case 'supprimerFrais':
@@ -152,13 +155,13 @@ switch ($action) {
     </div>
     <?php
     break;
-    case 'Valider' :
+  case 'Valider' :
     $pdo->validerFicheDeFrais($_SESSION['idVisi'], $_SESSION['date'], $_SESSION['montant']);
     ?> </br>
     <div class = "alert alert-success" role = "alert">
       <p>Votre fiche de frais a bien été validée ! <a href = "index.php?uc=ValiderFicheDeFrais&action=selectionnerMois">Cliquez ici</a>
         pour revenir à la selection.</p>
     </div>
-    <?php
-  }
+  <?php
+}
   

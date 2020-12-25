@@ -5,12 +5,7 @@
  * and open the template in the editor.
  */
 ?>
-<h2>Valider fiche de frais</h2>
-<div class="row">
-  <div class="col-md-4">
-    <h3>Sélectionner un visiteur : </h3>
-  </div>
-</div>
+
 <div class="row">
   <div class="col-md-4">
     <h3>Sélectionner un mois : </h3>

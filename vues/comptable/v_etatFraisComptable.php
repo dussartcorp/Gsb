@@ -34,8 +34,14 @@
         $date = $infoFiche['dateModif'];
 
         foreach ($lesFraisHorsForfait as $frais) {
-          $montant = $frais['montant'];
-          $montants += $montant;
+          $pos = strpos($frais['libelle'], 'REFUSE');
+          $refus = 0;
+          if ($pos !== FALSE) {
+            $montants += $refus;
+          } else {
+            $montant = $frais['montant'];
+            $montants += $montant;
+          }
         }
         foreach ($lesFraisForfait as $frais) {
           $idLibelle = $frais['idfrais'];
@@ -139,30 +145,30 @@
         if ($pos !== FALSE) {
           ?>
           <tr style="color: red;">
-          <td><div class="form-group">
-              <label for="date"></label>
-              <input type="text" 
-                     name="lesDates[<?php echo $id ?>]"
-                     size="10" maxlength="15" 
-                     value="<?php echo $datee ?>"
-                     disabled="disabled">
-            </div></td>
-          <td><div class="form-group">
-              <label for="libelle"></label>
-              <input type="text" 
-                     name="lesLibelles[<?php echo $id ?>]"
-                     size="15" maxlength="40" 
-                     value="<?php echo $libellehorsFrais ?>"
-                     disabled="disabled">
-            </div></td>
-          <td><div class="form-group">
-              <label for="montant"></label>
-              <input type="text" 
-                     name="lesMontants[<?php echo $id ?>]"
-                     size="10" maxlength="15" 
-                     value="<?php echo $montant ?>"
-                     disabled="disabled"> €
-            </div></td>
+            <td><div class="form-group">
+                <label for="date"></label>
+                <input type="text" 
+                       name="lesDates[<?php echo $id ?>]"
+                       size="10" maxlength="15" 
+                       value="<?php echo $datee ?>"
+                       disabled="disabled">
+              </div></td>
+            <td><div class="form-group">
+                <label for="libelle"></label>
+                <input type="text" 
+                       name="lesLibelles[<?php echo $id ?>]"
+                       size="15" maxlength="40" 
+                       value="<?php echo $libellehorsFrais ?>"
+                       disabled="disabled">
+              </div></td>
+            <td><div class="form-group">
+                <label for="montant"></label>
+                <input type="text" 
+                       name="lesMontants[<?php echo $id ?>]"
+                       size="10" maxlength="15" 
+                       value="<?php echo $montant ?>"
+                       disabled="disabled"> €
+              </div></td>
             <td> Pas d'actions possibles après refus</td>
           <?php } else { ?>
           <tr>

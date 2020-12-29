@@ -647,11 +647,11 @@ class PdoGsb {
   /**
    * Valide la fiche de frais
    *
-   * @param type $idVisiteur id du visiteur
-   * @param type $mois mois de la fiche a valider
-   * @param type $montant montant de la fiche à valider
+   * @param string $idVisiteur id du visiteur
+   * @param string $mois mois de la fiche a valider
+   * @param float $montant montant de la fiche à valider
    */
-  public function validerFicheDeFrais(string $idVisiteur, string $mois, int $montant) {
+  public function validerFicheDeFrais(string $idVisiteur, string $mois, string $montant) {
     $dateCourante = date('Y-m-d');
     $idEtat = 'VA';
     $requetePrepare = PdoGSB::$monPdo->prepare(
@@ -660,7 +660,7 @@ class PdoGsb {
       . 'WHERE fichefrais.idvisiteur = :unIdVisiteur '
       . 'AND fichefrais.mois = :unMois'
     );
-    $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_INT);
+    $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_STR);
     $requetePrepare->bindParam(':uneDate', $dateCourante, PDO::PARAM_STR);
     $requetePrepare->bindParam(':unIdEtat', $idEtat, PDO::PARAM_STR);
     $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);

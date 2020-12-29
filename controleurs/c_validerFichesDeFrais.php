@@ -24,8 +24,11 @@ switch ($action) {
     if (empty($lesMois)) {
       ?></br><?php
       ajouterErreur("Aucune fiche de frais n'est à valider pour ce visiteur. Veuillez-en choisir un autre");
+      $lesVisiteurs = $pdo->getListeVisiteurs();
+      $idvst = filter_input(INPUT_POST, "lstVisiteurs", FILTER_SANITIZE_STRING);
+      $_SESSION['idVisi'] = $idvst;
       include 'vues/v_erreurs.php';
-      include 'vues/comptable/v_listeMoisComptable.php';
+      include 'vues/comptable/v_listeVisiteur.php';
     } else {
       $lesCles = array_keys($lesMois);
       $moisASelectionner = $lesCles[0];
@@ -137,7 +140,6 @@ switch ($action) {
     $mois = filter_input(INPUT_GET, 'mois', FILTER_SANITIZE_STRING);
     $idVisiteur = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
     $pdo->refuserFraisHorsForfait($idFrais);
-    
     ?>
     <div class="alert alert-info" role="alert">
       <p>Ce frais hors forfait a bien été supprimé! <a href = "index.php?uc=validerFichesDeFrais&action=selectionnerVisiteur">Cliquez ici</a>
@@ -165,11 +167,10 @@ switch ($action) {
     <?php
     break;
   case 'Valider' :
-    var_dump($_SESSION);
-    $pdo->validerFicheDeFrais($_SESSION['idVisi'], $_SESSION['date'], $_SESSION['montant']);
+    $pdo->validerFicheDeFrais($_SESSION['idVisi'], $_SESSION['date'], (string)$_SESSION['montant']);
     ?> </br>
     <div class = "alert alert-success" role = "alert">
-      <p>Votre fiche de frais a bien été validée ! <a href = "index.php?uc=ValiderFicheDeFrais&action=selectionnerMois">Cliquez ici</a>
+      <p>Votre fiche de frais a bien été validée ! <a href = "index.php?uc=validerFichesDeFrais&action=selectionnerVisiteur">Cliquez ici</a>
         pour revenir à la selection.</p>
     </div>
   <?php

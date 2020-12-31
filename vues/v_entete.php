@@ -94,7 +94,7 @@
                     </a>
                   </li>
                   <li <?php if ($uc == 'suivreFrais') { ?>class="active"<?php } ?>>
-                    <a href="index.php?uc=suivrePaiementFrais&action=selectionnerSuiviV">
+                    <a href="index.php?uc=suivrePaiementFrais&action=selectionnerSuiviVisiteur">
                       <span class="fas fa-user-check"></span>
                       Suivre les fiches de frais
                     </a>

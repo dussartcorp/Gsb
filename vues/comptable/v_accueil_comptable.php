@@ -38,7 +38,7 @@
                            class="btn btn-primary btn-lg" role="button">
                             <span class="fas fa-check"></span>
                             <br>Valider les fiches de frais</a>
-                       <a href="index.php?uc=suivrePaiementFrais&action=selectionnerSuiviV"
+                       <a href="index.php?uc=suivrePaiementFrais&action=selectionnerSuiviVisiteur"
                            class="btn btn-primary btn-lg" role="button">
                             <span class="fas fa-user-check"></span>
                             <br>Suivre les fiches de frais</a>

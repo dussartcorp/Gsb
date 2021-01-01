@@ -33,11 +33,11 @@
     <div class="row">
       <div class="col-xs-12 col-md-12">
         <a href="index.php?uc=validerFichesDeFrais&action=selectionnerVisiteur"
-           class="btn btn-success btn-lg" role="button">
+           class="btn btn-warning btn-lg" role="button">
           <span class="fas fa-check"></span>
           <br>Valider les fiches de frais</a>
         <a href="index.php?uc=suivrePaiementFrais&action=selectionnerSuiviVisiteur"
-           class="btn btn-warning btn-lg" role="button">
+           class="btn btn-info btn-lg" role="button">
           <span class="fas fa-user-check"></span>
           <br>Suivre les fiches de frais</a>
       </div>

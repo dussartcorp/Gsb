@@ -15,7 +15,17 @@
  */
 
 if ($estConnecte) {
-    include 'vues/v_accueil.php';
-} else {
+    if($_SESSION['type'] === 'visiteur')
+    {
+        include 'vues/v_accueil.php';
+    }
+    elseif ($_SESSION['type'] === 'comptable') 
+    {
+        include 'vues/comptable/v_accueil_comptable.php';
+    }
+}
+else 
+{
     include 'vues/v_connexion.php';
 }
+

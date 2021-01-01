@@ -4099,6 +4099,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #fff;
   background-color: #337ab7;
 }
+.nav-pills > li.active1 > a,
+.nav-pills > li.active1 > a:hover,
+.nav-pills > li.active1 > a:focus {
+  color: #fff;
+  background-color: #E02A2A;
+}
 .nav-stacked > li {
   float: none;
 }

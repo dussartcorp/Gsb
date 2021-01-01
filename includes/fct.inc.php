@@ -21,7 +21,7 @@
  */
 function estConnecte()
 {
-    return isset($_SESSION['idVisiteur']);
+    return isset($_SESSION['idVisiteur']) || isset($_SESSION['idComptable']);
 }
 
 /**
@@ -34,18 +34,23 @@ function estConnecte()
  *
  * @return null
  */
-function connecter(string $id, string $nom, string $prenom, string $type)
+function connecter($idUtilisiteur, $nom, $prenom, $type)
 {
-    if($type === 'visiteur'){
-        $_SESSION['idVisiteur'] = $id;
+    if($type === 'visiteur')
+    {
+        $_SESSION['idVisiteur'] = $idUtilisiteur;
         $_SESSION['nom'] = $nom;
         $_SESSION['prenom'] = $prenom;
+        $_SESSION['type'] = $type;
     }
-    else {
-        $_SESSION['idVisiteur'] = $id;
+    else 
+    {
+        $_SESSION['idComptable'] = $idUtilisiteur;
         $_SESSION['nom'] = $nom;
         $_SESSION['prenom'] = $prenom;
+        $_SESSION['type'] = $type;
     }
+    
 }
 
 /**

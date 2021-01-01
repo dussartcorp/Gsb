@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Index du projet GSB
  *
@@ -13,7 +14,6 @@
  * @version   GIT: <0>
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  */
-
 require_once 'includes/fct.inc.php';
 require_once 'includes/class.pdogsb.inc.php';
 session_start();
@@ -22,31 +22,31 @@ $estConnecte = estConnecte();
 require 'vues/v_entete.php';
 $uc = filter_input(INPUT_GET, 'uc', FILTER_SANITIZE_STRING);
 if ($uc && !$estConnecte) {
-    $uc = 'connexion';
+  $uc = 'connexion';
 } elseif (empty($uc)) {
-    $uc = 'accueil';
+  $uc = 'accueil';
 }
 switch ($uc) {
-case 'connexion':
+  case 'connexion':
     include 'controleurs/c_connexion.php';
     break;
-case 'accueil':
+  case 'accueil':
     include 'controleurs/c_accueil.php';
     break;
-case 'gererFrais':
+  case 'gererFrais':
     include 'controleurs/c_gererFrais.php';
     break;
-case 'etatFrais':
+  case 'etatFrais':
     include 'controleurs/c_etatFrais.php';
     break;
-case 'deconnexion':
+  case 'deconnexion':
     include 'controleurs/c_deconnexion.php';
     break;
-case 'validerFichesDeFrais':
+  case 'validerFichesDeFrais':
     include 'controleurs/c_validerFichesDeFrais.php';
     break;
-case 'etatFraisComptable':
-    include 'controleurs/c_etatFraisComptable.php';
+  case 'suivrePaiementFrais':
+    include 'controleurs/c_suivrePaiementFrais.php';
     break;
 }
 require 'vues/v_pied.php';

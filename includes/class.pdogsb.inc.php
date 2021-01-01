@@ -1,3 +1,4 @@
+
 <?php
 
 /**
@@ -754,7 +755,6 @@ class PdoGsb {
     return $mois;
   }
 
-  
   /**
    *  Fonction qui permet de retirer le montant en paramètre au montant validé 
    *  après report ou suppression du frais
@@ -763,18 +763,62 @@ class PdoGsb {
    * @param string $mois le mois de la fiche de frais à modifier
    * @param string $montant le montant à soustraire au montant.
    */
-  public function retirerMontantFicheFrais(string $idVisiteur, string $mois, string $montant){
+  public function retirerMontantFicheFrais(string $idVisiteur, string $mois, string $montant) {
     $dateCourante = date('Y-m-d');
     $requetePrepare = PdoGsb::$monPdo->prepare(
       'UPDATE fichefrais '
       . 'SET fichefrais.montantValide = fichefrais.montantValide - :unMontant '
       . 'WHERE fichefrais.idvisiteur = :unIdVisiteur '
       . 'AND fichefrais.mois = :unMois ');
-    
+
     $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_INT);
     $requetePrepare->bindParam(':uneDate', $dateCourante, PDO::PARAM_STR);
     $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
     $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
     $requetePrepare->execute();
   }
+
+  /**
+   *  Retourne une liste de tous les visiteurs qui ont une fiche de frais validée
+   * 
+   * @param string $mois
+   * @return type
+   */
+  public function getVisiteurFromMoisVA(string $mois) {
+    $requetePrepare = PdoGSB::$monPdo->prepare(
+      "select CONCAT(nom, ' ', prenom)as nomvisiteur, idvisiteur as visiteur from fichefrais "
+      . "inner join visiteur on visiteur.id = fichefrais.idvisiteur "
+      . "where mois=:unMois "
+      . "AND idetat='VA'");
+    $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+    $requetePrepare->execute();
+    $res = $requetePrepare->fetchAll(PDO::FETCH_ASSOC);
+    return $res;
+  }
+
+  /**
+   * Fonction qui change le statut de la fiche de l'idVisiteur 
+   * en mise en paiement
+   * 
+   * @param string $idVisiteur l'id du visiteur
+   * @param string $mois la date de la fiche de frais
+   * @param string $montant le montant de la fiche de frais
+   */
+  public function validerFicheDeFraisVA(string $idVisiteur, string $mois, string $montant) {
+    $dateCourante = date('Y-m-d');
+    $idEtat = 'MP';
+    $requetePrepare = PdoGSB::$monPdo->prepare(
+      'UPDATE fichefrais '
+      . 'SET fichefrais.montantvalide = :unMontant, fichefrais.datemodif = :uneDate, fichefrais.idetat = :unIdEtat '
+      . 'WHERE fichefrais.idvisiteur = :unIdVisiteur '
+      . 'AND fichefrais.mois = :unMois '
+    );
+    $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':uneDate', $dateCourante, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':unIdEtat', $idEtat, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+    $requetePrepare->execute();
+  }
+
 }

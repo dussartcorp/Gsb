@@ -32,6 +32,8 @@
           rel="stylesheet">
     <link href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css" media="all" rel="stylesheet">
   </head>
+  <link href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css" media="all" rel="stylesheet"
+        </head>
   <body>
     <div class="container">
       <?php
@@ -93,6 +95,12 @@
                     <a href="index.php?uc=validerFichesDeFrais&action=selectionnerVisiteur" class="couleur">
                       <span class="fa fa-check"></span>
                       Valider les fiches de frais
+                    </a>
+                  </li>
+                  <li <?php if ($uc == 'suivreFrais') { ?>class="active1"<?php } ?>>
+                    <a href="index.php?uc=suivrePaiementFrais&action=selectionnerSuiviVisiteur" class="couleur">
+                      <span class="fa fa-user-check"></span>
+                      Suivre les fiches de frais
                     </a>
                   </li>
                   <li 

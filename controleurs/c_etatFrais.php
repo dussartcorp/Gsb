@@ -31,15 +31,17 @@ case 'voirEtatFrais':
     $leMois = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
     $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
     $moisASelectionner = $leMois;
+    $_SESSION['date'] = $leMois;
     include 'vues/v_listeMois.php';
     $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
     $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
     $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
     $numAnnee = substr($leMois, 0, 4);
     $numMois = substr($leMois, 4, 2);
-    $libEtat = $lesInfosFicheFrais['libEtat'];
-    $montantValide = $lesInfosFicheFrais['montantValide'];
-    $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
-    $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
+    foreach($lesInfosFicheFrais as $frais){
+    $libEtat = $frais['libEtat'];
+    $montantValide = $frais['montantValide'];
+    $nbJustificatifs = $frais['nbJustificatifs'];
+    $dateModif = dateAnglaisVersFrancais($frais['dateModif']);}
     include 'vues/v_etatFrais.php';
 }

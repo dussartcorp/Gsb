@@ -455,7 +455,7 @@ class PdoGsb {
    *
    * @return null
    */
-  public function supprimerFraisHorsForfait($idFrais) {
+  public function supprimerFraisHorsForfait(string $idFrais) {
     $requetePrepare = PdoGSB::$monPdo->prepare(
       'DELETE FROM lignefraishorsforfait '
       . 'WHERE lignefraishorsforfait.id = :unIdFrais'
@@ -472,7 +472,7 @@ class PdoGsb {
    * @return un tableau associatif de clé un mois -aaaamm- et de valeurs
    *         l'année et le mois correspondant
    */
-  public function getLesMoisDisponibles($idVisiteur) {
+  public function getLesMoisDisponibles(string $idVisiteur) {
     $requetePrepare = PdoGSB::$monPdo->prepare(
       'SELECT fichefrais.mois AS mois FROM fichefrais '
       . 'WHERE fichefrais.idvisiteur = :unIdVisiteur '
@@ -502,8 +502,8 @@ class PdoGsb {
    * @return un tableau associatif de clé un mois -aaaamm- et de valeurs
    *         l'année et le mois correspondant
    */
-  public function getLesMoisDisponiblesCR($idVisiteur) {
-    $idEtat = 'CR';
+  public function getLesMoisDisponiblesCR(string $idVisiteur) {
+    $idEtat = 'CL';
     $requetePrepare = PdoGSB::$monPdo->prepare(
       'SELECT fichefrais.mois AS mois FROM fichefrais '
       . 'WHERE fichefrais.idvisiteur = :unIdVisiteur '
@@ -537,7 +537,7 @@ class PdoGsb {
    * @return un tableau avec des champs de jointure entre une fiche de frais
    *         et la ligne d'état
    */
-  public function getLesInfosFicheFrais($idVisiteur, $mois) {
+  public function getLesInfosFicheFrais(string $idVisiteur, string $mois) {
     $requetePrepare = PdoGSB::$monPdo->prepare(
       'SELECT fichefrais.idetat as idEtat, '
       . 'fichefrais.datemodif as dateModif,'
@@ -566,7 +566,7 @@ class PdoGsb {
    *
    * @return null
    */
-  public function majEtatFicheFrais($idVisiteur, $mois, $etat) {
+  public function majEtatFicheFrais(string $idVisiteur, string $mois, string $etat) {
     $requetePrepare = PdoGSB::$monPdo->prepare(
       'UPDATE ficheFrais '
       . 'SET idetat = :unEtat, datemodif = now() '

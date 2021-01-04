@@ -579,24 +579,7 @@ class PdoGsb {
     $requetePrepare->execute();
   }
 
-  public function getMoisFicheDeFrais() {
-    $requetePrepare = PdoGSB::$monPdo->prepare(
-      "select distinct mois from fichefrais where idetat='CR'");
-    $requetePrepare->execute();
-    $leMois = array();
-    while ($laLigne = $requetePrepare->fetch()) {
-      $mois = $laLigne['mois'];
-      $numAnnee = substr($mois, 0, 4);
-      $numMois = substr($mois, 4, 2);
-      $leMois[] = array(
-        'mois' => $mois,
-        'numAnnee' => $numAnnee,
-        'numMois' => $numMois
-      );
-    }
-    return $leMois;
-  }
-
+  
   /**
    * Retourne une liste de tous les visiteurs medicaux de GSB.
    *

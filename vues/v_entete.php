@@ -91,13 +91,13 @@
                       Accueil
                     </a>
                   </li>
-                  <li <?php if ($uc == 'etatFraisComptable') { ?>class="active1" <?php } ?>>
+                  <li <?php if ($uc == 'validerFichesDeFrais') { ?>class="active1" <?php } ?>>
                     <a href="index.php?uc=validerFichesDeFrais&action=selectionnerVisiteur" class="couleur">
                       <span class="fa fa-check"></span>
                       Valider les fiches de frais
                     </a>
                   </li>
-                  <li <?php if ($uc == 'suivreFrais') { ?>class="active1" <?php } ?>>
+                  <li <?php if ($uc == 'suivrePaiementFrais') { ?>class="active1" <?php } ?>>
                     <a href="index.php?uc=suivrePaiementFrais&action=selectionnerSuiviVisiteur" class="couleur">
                       <span class="fa fa-user-check"></span>
                       Suivre les fiches de frais

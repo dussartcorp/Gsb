@@ -101,8 +101,8 @@ switch ($action) {
       dateAnglaisVersFrancais($uneDate);
       foreach ($lesHorsForfaitLibelle as $unLibelle) {
         foreach ($lesHorsForfaitMontant as $unMontant) {
-          if (estDateDepassee($uneDate) || ($unLibelle == '') || ($unMontant == '')) {
-            ajouterErreur('Une information est mauvaise. Rappel: date de moins de 1 ans, libelle et montant non null');
+          if (!estDateDepassee($uneDate) || ($unLibelle == '') || ($unMontant == '')) {
+            ajouterErreur('Une information est mauvaise');
             include 'vues/v_erreurs.php';
             break 3;
           } else {
@@ -118,7 +118,7 @@ switch ($action) {
     $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['idVisi'], $_SESSION['date']);
     $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['idVisi'], $_SESSION['date']);
     $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($_SESSION['idVisi'], $_SESSION['date']);
-    include'vues/v_ValiderFicheDeFrais.php';
+    include'vues/comptable/v_etatFraisComptable.php';
     break;
   case 'supprimerFrais':
     $unIdFrais = filter_input(INPUT_GET, 'idFrais', FILTER_SANITIZE_NUMBER_INT);

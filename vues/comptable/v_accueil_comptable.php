@@ -23,7 +23,7 @@
   </h2>
 </div>
 <div class="panel panel-primary" style="border-color: #FFA500 !important;">
-  <div class="panel-heading" style="background-color: #FFA500 !important; border-color: #E61616 !important;">
+  <div class="panel-heading" style="background-color: #FFA500 !important; border-color: #FFA500 !important;">
     <h3 class="panel-title">
       <span class="glyphicon glyphicon-bookmark"></span>
       Navigation

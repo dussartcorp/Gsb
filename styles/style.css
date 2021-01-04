@@ -5,10 +5,10 @@
 }
 
 .couleur{
-    color: #E02A2A;
+    color: #FFA500;
 }
 
 .couleur:hover, .couleur:focus{
-    background-color: #F2F2F2;
-    color: #E02A2A;
+    background-color: #FFA500;
+    color: #FFA500;
 }

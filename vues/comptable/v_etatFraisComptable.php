@@ -21,8 +21,8 @@
   <form method="post" 
         action="index.php?uc=validerFichesDeFrais&action=CorrigerNbJustificatifs" 
         role="form">
-    <div class="panel panel-info" style="border-color: #E02A2A;">
-      <div class="panel-heading" style="border-color: #E02A2A; background-color: #E02A2A; color: white;">Fiche</div>
+    <div class="panel panel-info" style="border-color: #FFA500;">
+      <div class="panel-heading" style="border-color: #FFA500; background-color: #FFA500; color: white;">Fiche</div>
       <table class="table table-bordered table-responsive">
         <tr>
           <th>Date de modification</th>
@@ -82,8 +82,8 @@
   <form method="post" 
         action="index.php?uc=validerFichesDeFrais&action=CorrigerFraisForfait" 
         role="form">
-    <div class="panel panel-info" style="border-color: #E02A2A;">
-      <div class="panel-heading" style="border-color: #E02A2A; background-color: #E02A2A; color: white;">Eléments forfaitisés</div>
+    <div class="panel panel-info" style="border-color: #FFA500;">
+      <div class="panel-heading" style="border-color: #FFA500; background-color: #FFA500; color: white;">Eléments forfaitisés</div>
       <table class="table table-bordered table-responsive">
         <tr>
           <th>Libelle</th>
@@ -127,8 +127,8 @@
   <form method="post" 
         action="index.php?uc=validerFichesDeFrais&action=CorrigerElemHorsForfait" 
         role="form">
-    <div class="panel panel-info" style="border-color: #E02A2A;">
-      <div class="panel-heading" style="border-color: #E02A2A; background-color: #E02A2A; color: white;">Eléments hors-forfait</div>
+    <div class="panel panel-info" style="border-color: #FFA500;">
+      <div class="panel-heading" style="border-color: #FFA500; background-color: #FFA500; color: white;">Eléments hors-forfait</div>
       <table class="table table-bordered table-responsive">
         <tr>
           <th>Date</th>
@@ -220,8 +220,8 @@
   <br><br>
   <form method="post" 
         role="form">
-    <div class="panel panel-info" style="border-color: #E02A2A;">
-      <div class="panel-heading" style="border-color: #E02A2A; background-color: #E02A2A; color: white;">Fiche</div>
+    <div class="panel panel-info" style="border-color: #FFA500;">
+      <div class="panel-heading" style="border-color: #FFA500; background-color: #FFA500; color: white;">Fiche</div>
       <table class="table table-bordered table-responsive">
         <tr>
           <th>Date de modification</th>
@@ -265,8 +265,8 @@
     </br> </br>
     <form method="post" 
           role="form">
-      <div class="panel panel-info" style="border-color: #E02A2A;">
-        <div class="panel-heading" style="border-color: #E02A2A; background-color: #E02A2A; color: white;">Eléments forfaitisés</div>
+      <div class="panel panel-info" style="border-color: #FFA500;">
+        <div class="panel-heading" style="border-color: #FFA500; background-color: #FFA500; color: white;">Eléments forfaitisés</div>
         <table class="table table-bordered table-responsive">
           <tr>
             <th>Libelle</th>
@@ -299,8 +299,8 @@
       </br> </br>
       <form method="post" 
             role="form">
-        <div class="panel panel-info" style="border-color: #E02A2A;">
-          <div class="panel-heading" style="border-color: #E02A2A; background-color: #E02A2A; color: white;">Eléments hors-forfait</div>
+        <div class="panel panel-info" style="border-color: #FFA500;">
+          <div class="panel-heading" style="border-color: #FFA500; background-color: #FFA500; color: white;">Eléments hors-forfait</div>
           <table class="table table-bordered table-responsive">
             <tr>
               <th>Date</th>
